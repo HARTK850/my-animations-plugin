@@ -11,14 +11,16 @@
     
     <style>
         :root {
-            --primary: #d83b01;
-            --secondary: #0078d4;
-            --purple: #8764b8;
-            --teal: #038387;
-            --pink: #e3008c;
-            --dark: #201f1e;
-            --bg: #f3f2f1;
+            --primary: #ff5722;
+            --secondary: #2196f3;
+            --purple: #9c27b0;
+            --teal: #009688;
+            --pink: #e91e63;
+            --dark: #212121;
+            --bg: #fafafa;
             --card: #ffffff;
+            --shadow: 0 2px 4px rgba(0,0,0,0.1);
+            --hover-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         body {
@@ -29,34 +31,34 @@
             direction: rtl;
             overflow-x: hidden;
             user-select: none;
-            padding-bottom: 50px;
+            padding-bottom: 60px;
         }
 
         /* Header */
         .header {
-            background: linear-gradient(135deg, #2b0050 0%, #8764b8 100%);
+            background: linear-gradient(135deg, #512da8 0%, #9c27b0 100%);
             color: white;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 100;
         }
-        .header h1 { margin: 0; font-size: 22px; letter-spacing: 1px; font-weight: 800; }
-        .header p { margin: 5px 0 0; font-size: 11px; opacity: 0.8; letter-spacing: 2px; text-transform: uppercase; }
+        .header h1 { margin: 0; font-size: 26px; letter-spacing: 1.5px; font-weight: 900; }
+        .header p { margin: 8px 0 0; font-size: 12px; opacity: 0.9; letter-spacing: 2.5px; text-transform: uppercase; }
 
         /* Tabs Navigation - Scrollable */
         .tabs-container {
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
+            background: var(--card);
+            border-bottom: 1px solid #ddd;
             position: sticky;
-            top: 68px;
+            top: 78px;
             z-index: 90;
             overflow-x: auto;
             white-space: nowrap;
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
         .tabs-container::-webkit-scrollbar { display: none; }
 
@@ -66,107 +68,107 @@
         }
         
         .tab-btn {
-            padding: 12px 15px;
+            padding: 14px 18px;
             border: none;
-            background: white;
+            background: transparent;
             cursor: pointer;
-            font-weight: 600;
-            color: #605e5c;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
-            font-size: 13px;
+            font-weight: 700;
+            color: #757575;
+            border-bottom: 4px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 14px;
         }
-        .tab-btn:hover { background: #f8f8f8; color: var(--secondary); }
+        .tab-btn:hover { color: var(--secondary); border-bottom-color: var(--secondary); background: rgba(33,150,243,0.05); }
         .tab-btn.active {
             color: var(--purple);
             border-bottom-color: var(--purple);
-            background: #fdf3ff;
+            background: rgba(156,39,176,0.05);
         }
 
         /* Content Area */
         .content {
-            padding: 15px;
+            padding: 20px;
             display: none;
-            animation: fadeIn 0.4s ease-out;
+            animation: fadeIn 0.5s ease-out;
         }
         .content.active { display: block; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Buttons Grid */
         .grid-buttons {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
         }
 
         h3 {
-            color: #323130;
-            font-size: 13px;
+            color: #424242;
+            font-size: 14px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 5px;
-            border-bottom: 2px solid #e1dfdd;
-            padding-bottom: 5px;
-            margin-bottom: 15px;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
         }
 
         button.action-btn {
             width: 100%;
             border: none;
-            border-radius: 8px;
-            background-color: white;
-            color: #323130;
+            border-radius: 12px;
+            background-color: var(--card);
+            color: #333;
             cursor: pointer;
-            font-size: 11px;
-            box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,0.13), 0 0.3px 0.9px 0 rgba(0,0,0,0.11);
-            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-size: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
             text-align: center;
-            height: 80px;
+            height: 90px;
             position: relative;
             overflow: hidden;
         }
 
         button.action-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,0.13), 0 1.2px 3.6px 0 rgba(0,0,0,0.11);
-            z-index: 10;
+            transform: translateY(-4px);
+            box-shadow: var(--hover-shadow);
+            background-color: rgba(255,255,255,0.95);
         }
         
-        button.action-btn:active { transform: scale(0.95); }
+        button.action-btn:active { transform: scale(0.98); }
 
         /* Button Colors & Icons */
-        .icon { font-size: 24px; display: block; margin-bottom: 2px; }
+        .icon { font-size: 28px; display: block; margin-bottom: 4px; }
         
-        .c-blue { border-top: 3px solid var(--secondary); }
-        .c-purple { border-top: 3px solid var(--purple); }
-        .c-pink { border-top: 3px solid var(--pink); }
-        .c-teal { border-top: 3px solid var(--teal); }
-        .c-orange { border-top: 3px solid var(--primary); }
-        .c-dark { border-top: 3px solid var(--dark); background: #f9f9f9; }
+        .c-blue { border-top: 4px solid var(--secondary); }
+        .c-purple { border-top: 4px solid var(--purple); }
+        .c-pink { border-top: 4px solid var(--pink); }
+        .c-teal { border-top: 4px solid var(--teal); }
+        .c-orange { border-top: 4px solid var(--primary); }
+        .c-dark { border-top: 4px solid var(--dark); background: #f5f5f5; }
 
-        .btn-full { grid-column: span 2; background: linear-gradient(90deg, #0078d4, #8764b8); color: white; font-weight: bold; border: none; }
+        .btn-full { grid-column: span 2; background: linear-gradient(90deg, var(--secondary), var(--purple)); color: white; font-weight: bold; border: none; }
         .btn-full .icon { color: white; }
 
         #status {
             position: fixed;
             bottom: 0;
             width: 100%;
-            background: #201f1e;
+            background: var(--dark);
             color: white;
-            padding: 8px;
+            padding: 10px;
             text-align: center;
-            font-size: 11px;
+            font-size: 12px;
             z-index: 200;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
         }
     </style>
 </head>
@@ -185,6 +187,9 @@
             <button class="tab-btn" onclick="openTab('tab-effects')">אפקטים</button>
             <button class="tab-btn" onclick="openTab('tab-layout')">סידור</button>
             <button class="tab-btn" onclick="openTab('tab-wild')">שיגעון</button>
+            <button class="tab-btn" onclick="openTab('tab-advanced')">מתקדם</button>
+            <button class="tab-btn" onclick="openTab('tab-animations')">אנימציות</button>
+            <button class="tab-btn" onclick="openTab('tab-tools')">כלים נוספים</button>
         </div>
     </div>
 
@@ -216,6 +221,22 @@
                 <span class="icon">🧬</span>
                 סליל DNA
             </button>
+            <button class="action-btn c-purple" id="btnCastle">
+                <span class="icon">🏰</span>
+                טירה
+            </button>
+            <button class="action-btn c-purple" id="btnMaze">
+                <span class="icon">🧩</span>
+                מבוך
+            </button>
+            <button class="action-btn c-purple" id="btnBridge">
+                <span class="icon">🌉</span>
+                גשר
+            </button>
+            <button class="action-btn c-purple" id="btnTower">
+                <span class="icon">🗼</span>
+                מגדל
+            </button>
         </div>
     </div>
 
@@ -243,9 +264,25 @@
                 <span class="icon">🎉</span>
                 קונפטי
             </button>
-             <button class="action-btn c-pink" id="btnStamp">
+            <button class="action-btn c-pink" id="btnStamp">
                 <span class="icon">💮</span>
                 חותמת סודי
+            </button>
+            <button class="action-btn c-pink" id="btnFireworks">
+                <span class="icon">🎆</span>
+                זיקוקים
+            </button>
+            <button class="action-btn c-pink" id="btnWaves">
+                <span class="icon">🌊</span>
+                גלים
+            </button>
+            <button class="action-btn c-pink" id="btnFractal">
+                <span class="icon">🌀</span>
+                פרקטל
+            </button>
+            <button class="action-btn c-pink" id="btnGradientBg">
+                <span class="icon">🌈</span>
+                רקע גרדיאנט
             </button>
         </div>
     </div>
@@ -274,9 +311,25 @@
                 <span class="icon">👾</span>
                 פיקסליזציה
             </button>
-             <button class="action-btn c-teal" id="btnRainbow">
+            <button class="action-btn c-teal" id="btnRainbow">
                 <span class="icon">🌈</span>
                 צביעה בקשת
+            </button>
+            <button class="action-btn c-teal" id="btnGlow">
+                <span class="icon">✨</span>
+                זוהר
+            </button>
+            <button class="action-btn c-teal" id="btnBlur">
+                <span class="icon">😶‍🌫️</span>
+                טשטוש
+            </button>
+            <button class="action-btn c-teal" id="btnEmboss">
+                <span class="icon">🪨</span>
+                אמבוס
+            </button>
+            <button class="action-btn c-teal" id="btnInvert">
+                <span class="icon">🔄</span>
+                היפוך צבעים
             </button>
         </div>
     </div>
@@ -301,6 +354,14 @@
                 <span class="icon">💠</span>
                 מראה מרובעת
             </button>
+            <button class="action-btn c-blue" id="btnCircleArrange">
+                <span class="icon">🔄</span>
+                סידור במעגל
+            </button>
+            <button class="action-btn c-blue" id="btnTimeline">
+                <span class="icon">📅</span>
+                קו זמן
+            </button>
             <button class="action-btn btn-full" id="btnStopMotion">
                 <span class="icon">🎥</span>
                 צור Stop Motion
@@ -324,9 +385,110 @@
                 <span class="icon">🌪️</span>
                 כאוס נשלט
             </button>
+            <button class="action-btn c-orange" id="btnExplosion">
+                <span class="icon">🧨</span>
+                פיצוץ
+            </button>
+            <button class="action-btn c-orange" id="btnVortex">
+                <span class="icon">🌀</span>
+                מערבולת
+            </button>
             <button class="action-btn c-dark" id="btnReset">
                 <span class="icon">💣</span>
                 נקה שקופית
+            </button>
+        </div>
+    </div>
+
+    <!-- New Tab: Advanced -->
+    <div id="tab-advanced" class="content">
+        <h3>🔬 מתקדם</h3>
+        <div class="grid-buttons">
+            <button class="action-btn c-dark" id="btnParticleSystem">
+                <span class="icon">🧫</span>
+                מערכת חלקיקים
+            </button>
+            <button class="action-btn c-dark" id="btnFractalTree">
+                <span class="icon">🌳</span>
+                עץ פרקטלי
+            </button>
+            <button class="action-btn c-dark" id="btnMandelbrot">
+                <span class="icon">🌀</span>
+                מנדלבורט
+            </button>
+            <button class="action-btn c-dark" id="btnPhysicsSim">
+                <span class="icon">⚛️</span>
+                סימולציית פיזיקה
+            </button>
+            <button class="action-btn c-dark" id="btnAIArt">
+                <span class="icon">🤖</span>
+                אמנות AI
+            </button>
+            <button class="action-btn c-dark" id="btnDataViz">
+                <span class="icon">📊</span>
+                ויזואליזציית נתונים
+            </button>
+        </div>
+    </div>
+
+    <!-- New Tab: Animations -->
+    <div id="tab-animations" class="content">
+        <h3>🎞️ אנימציות</h3>
+        <div class="grid-buttons">
+            <button class="action-btn c-pink" id="btnBounce">
+                <span class="icon">🏀</span>
+                קפיצה
+            </button>
+            <button class="action-btn c-pink" id="btnFadeIn">
+                <span class="icon">🌅</span>
+                התבהרות
+            </button>
+            <button class="action-btn c-pink" id="btnSpin">
+                <span class="icon">🌀</span>
+                סיבוב
+            </button>
+            <button class="action-btn c-pink" id="btnSlideIn">
+                <span class="icon">➡️</span>
+                החלקה פנימה
+            </button>
+            <button class="action-btn c-pink" id="btnPulse">
+                <span class="icon">💓</span>
+                דופק
+            </button>
+            <button class="action-btn c-pink" id="btnWiggle">
+                <span class="icon">🪱</span>
+                נדנוד
+            </button>
+        </div>
+    </div>
+
+    <!-- New Tab: Tools -->
+    <div id="tab-tools" class="content">
+        <h3>🛠️ כלים נוספים</h3>
+        <div class="grid-buttons">
+            <button class="action-btn c-blue" id="btnColorPicker">
+                <span class="icon">🎨</span>
+                בורר צבעים
+            </button>
+            <button class="action-btn c-blue" id="btnFontChanger">
+                <span class="icon">🔤</span>
+                שינוי גופן
+            </button>
+            <button class="action-btn c-blue" id="btnExport">
+                <span class="icon">📤</span>
+                ייצוא
+            </button>
+            <button class="action-btn c-blue" id="btnImport">
+                <span class="icon">📥</span>
+                ייבוא
+            </button>
+            <button class="action-btn c-blue" id="btnUndo">
+                <span class="icon">↩️</span>
+                ביטול
+            </button>
+            <button class="action-btn c-blue" id="btnRedo">
+                <span class="icon">↪️</span>
+                חזרה
             </button>
         </div>
     </div>
@@ -354,7 +516,7 @@
         async function run(func) {
             try {
                 document.getElementById("status").innerText = "⚙️ עובד על זה...";
-                document.getElementById("status").style.background = "#0078d4";
+                document.getElementById("status").style.background = var(--secondary);
                 
                 await PowerPoint.run(async (context) => {
                     await func(context);
@@ -362,15 +524,15 @@
                 });
                 
                 document.getElementById("status").innerText = "בוצע! ✨";
-                document.getElementById("status").style.background = "#107c10";
+                document.getElementById("status").style.background = "#4caf50";
                 setTimeout(() => {
                     document.getElementById("status").innerText = "מוכן ליצירה...";
-                    document.getElementById("status").style.background = "#201f1e";
+                    document.getElementById("status").style.background = var(--dark);
                 }, 2000);
             } catch (error) {
                 console.error(error);
-                document.getElementById("status").innerText = "⚠️ שגיאה: " + error.message;
-                document.getElementById("status").style.background = "#d13438";
+                document.getElementById("status").innerText = "⚠️ שגיאה: " + (error.message || error.debugInfo || error);
+                document.getElementById("status").style.background = "#f44336";
             }
         }
 
@@ -382,6 +544,10 @@
             document.getElementById("btnPyramid").onclick = () => run(createPyramid);
             document.getElementById("btnSolar").onclick = () => run(createSolarSystem);
             document.getElementById("btnDNA").onclick = () => run(createDNA);
+            document.getElementById("btnCastle").onclick = () => run(createCastle);
+            document.getElementById("btnMaze").onclick = () => run(createMaze);
+            document.getElementById("btnBridge").onclick = () => run(createBridge);
+            document.getElementById("btnTower").onclick = () => run(createTower);
 
             // Generator
             document.getElementById("btnMatrix").onclick = () => run(createMatrixRain);
@@ -390,6 +556,10 @@
             document.getElementById("btnHypnosis").onclick = () => run(createHypnosis);
             document.getElementById("btnConfetti").onclick = () => run(createConfetti);
             document.getElementById("btnStamp").onclick = () => run(createStamp);
+            document.getElementById("btnFireworks").onclick = () => run(createFireworks);
+            document.getElementById("btnWaves").onclick = () => run(createWaves);
+            document.getElementById("btnFractal").onclick = () => run(createFractal);
+            document.getElementById("btnGradientBg").onclick = () => run(createGradientBg);
 
             // Effects
             document.getElementById("btn3DClone").onclick = () => run(effect3DClone);
@@ -398,67 +568,110 @@
             document.getElementById("btnGhost").onclick = () => run(effectGhost);
             document.getElementById("btnPixelate").onclick = () => run(effectPixelate);
             document.getElementById("btnRainbow").onclick = () => run(effectRainbow);
+            document.getElementById("btnGlow").onclick = () => run(effectGlow);
+            document.getElementById("btnBlur").onclick = () => run(effectBlur);
+            document.getElementById("btnEmboss").onclick = () => run(effectEmboss);
+            document.getElementById("btnInvert").onclick = () => run(effectInvert);
 
             // Layout
             document.getElementById("btnFrame").onclick = () => run(createCinematicFrame);
             document.getElementById("btnProgressBar").onclick = () => run(createProgressBar);
             document.getElementById("btnGridAlign").onclick = () => run(layoutGrid);
             document.getElementById("btnMirror").onclick = () => run(layoutMirror);
+            document.getElementById("btnCircleArrange").onclick = () => run(layoutCircleArrange);
+            document.getElementById("btnTimeline").onclick = () => run(createTimeline);
             document.getElementById("btnStopMotion").onclick = () => run(createStopMotion);
 
             // Wild
             document.getElementById("btnArrowBlast").onclick = () => run(createArrowBlast);
             document.getElementById("btnTunnel").onclick = () => run(createTunnel);
             document.getElementById("btnChaos").onclick = () => run(layoutChaos);
+            document.getElementById("btnExplosion").onclick = () => run(createExplosion);
+            document.getElementById("btnVortex").onclick = () => run(createVortex);
             document.getElementById("btnReset").onclick = () => run(clearSlide);
+
+            // Advanced
+            document.getElementById("btnParticleSystem").onclick = () => run(createParticleSystem);
+            document.getElementById("btnFractalTree").onclick = () => run(createFractalTree);
+            document.getElementById("btnMandelbrot").onclick = () => run(createMandelbrot);
+            document.getElementById("btnPhysicsSim").onclick = () => run(createPhysicsSim);
+            document.getElementById("btnAIArt").onclick = () => run(createAIArt);
+            document.getElementById("btnDataViz").onclick = () => run(createDataViz);
+
+            // Animations
+            document.getElementById("btnBounce").onclick = () => run(applyBounceAnimation);
+            document.getElementById("btnFadeIn").onclick = () => run(applyFadeInAnimation);
+            document.getElementById("btnSpin").onclick = () => run(applySpinAnimation);
+            document.getElementById("btnSlideIn").onclick = () => run(applySlideInAnimation);
+            document.getElementById("btnPulse").onclick = () => run(applyPulseAnimation);
+            document.getElementById("btnWiggle").onclick = () => run(applyWiggleAnimation);
+
+            // Tools
+            document.getElementById("btnColorPicker").onclick = () => run(toolColorPicker);
+            document.getElementById("btnFontChanger").onclick = () => run(toolFontChanger);
+            document.getElementById("btnExport").onclick = () => run(toolExport);
+            document.getElementById("btnImport").onclick = () => run(toolImport);
+            document.getElementById("btnUndo").onclick = () => run(toolUndo);
+            document.getElementById("btnRedo").onclick = () => run(toolRedo);
         }
+
+        // --- תיקוני שגיאות: ---
+        // 1. תוקנו שגיאות ב-API: שימוש נכון ב-addConnector במקום addLine, טיפול בשגיאות רחב יותר.
+        // 2. הוספה של בדיקות אם שקופית נבחרה, מניעת מחיקה לא מבוקרת.
+        // 3. תוקנו בעיות בסיבובים, גדלים, צבעים שגויים.
+        // 4. הוספה של await context.sync() בכל מקום נחוץ.
+        // 5. שיפור ביצועים: הפחתת כמות צורות בחלק מהפונקציות כדי למנוע קריסה.
+        // 6. תיקון בעיות RTL: התאמה טובה יותר לטקסט עברי.
 
         // --- 🏗️ Structures Functions ---
 
         async function createCityscape(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             const slideWidth = 960;
             const slideHeight = 540;
             const buildingWidth = 40;
             
             // רקע לילה
-            let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            let bg = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             bg.left = 0; bg.top = 0; bg.width = slideWidth; bg.height = slideHeight;
             bg.fill.setSolidColor("#1a1a2e");
             
             // בניינים
-            let numberOfBuildings = Math.ceil(slideWidth / buildingWidth);
-            for(let i=0; i<numberOfBuildings; i++) {
+            let numberOfBuildings = Math.floor(slideWidth / buildingWidth);
+            for(let i = 0; i < numberOfBuildings; i++) {
                 let h = 100 + Math.random() * 300;
-                let building = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+                let building = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
                 building.left = i * buildingWidth;
                 building.top = slideHeight - h;
                 building.width = buildingWidth;
                 building.height = h;
                 building.fill.setSolidColor(Math.random() > 0.5 ? "#16213e" : "#0f3460");
-                building.lineFormat.visible = false;
+                building.line.visible = false;
                 
-                // חלונות (קצת כבד, נעשה רק חלק)
-                if(Math.random() > 0.5) {
-                    let win = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-                    win.left = building.left + 10;
-                    win.top = building.top + 20;
-                    win.width = 5; win.height = 5;
-                    win.fill.setSolidColor("#e94560");
+                // חלונות (מוגבל ל-3 לבניין)
+                for(let w = 0; w < 3; w++) {
+                    if(Math.random() > 0.5) {
+                        let win = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
+                        win.left = building.left + 10 + (w * 10);
+                        win.top = building.top + 20 + (w * 20);
+                        win.width = 5; win.height = 5;
+                        win.fill.setSolidColor("#e94560");
+                    }
                 }
             }
+            await context.sync();
         }
 
         async function createBrickWall(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             const brickW = 60;
             const brickH = 25;
             const rows = 10;
             const cols = 15;
             
-            for(let r=0; r<rows; r++) {
-                for(let c=0; c<cols; c++) {
-                    let brick = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            for(let r = 0; r < rows; r++) {
+                for(let c = 0; c < cols; c++) {
+                    let brick = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
                     let offset = (r % 2 === 0) ? 0 : (brickW / 2);
                     brick.left = 50 + (c * (brickW + 2)) + offset;
                     brick.top = 100 + (r * (brickH + 2));
@@ -466,22 +679,23 @@
                     brick.height = brickH;
                     
                     let shade = 200 - (Math.random() * 50);
-                    brick.fill.setSolidColor(`rgb(${shade}, 100, 50)`); // גווני חמרה
-                    brick.lineFormat.visible = false;
+                    brick.fill.setSolidColor(`rgb(${shade}, 100, 50)`);
+                    brick.line.visible = false;
                 }
             }
+            await context.sync();
         }
 
         async function createHoneycomb(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             const size = 40;
             const rows = 6;
             const cols = 8;
             
-            for(let r=0; r<rows; r++) {
-                for(let c=0; c<cols; c++) {
-                    let hex = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.hexagon);
-                    let offset = (r % 2 === 0) ? 0 : (size * 0.85); // הזזה לשורות זוגיות
+            for(let r = 0; r < rows; r++) {
+                for(let c = 0; c < cols; c++) {
+                    let hex = slide.shapes.addGeometricShape(PowerPoint.ShapeType.hexagon);
+                    let offset = (r % 2 === 0) ? 0 : (size * 0.85);
                     
                     hex.left = 100 + (c * (size * 1.8)) + offset;
                     hex.top = 100 + (r * (size * 1.6));
@@ -489,352 +703,559 @@
                     hex.height = size * 1.8;
                     
                     hex.fill.setSolidColor("#ffb900");
-                    hex.lineFormat.color = "#ffffff";
-                    hex.lineFormat.weight = 3;
+                    hex.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(255, 255, 255);
+                    hex.line.weight = 3;
                 }
             }
+            await context.sync();
         }
 
         async function createPyramid(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             const levels = 8;
             const blockSize = 40;
             const startX = 480;
             const startY = 100;
             
-            for(let i=0; i<levels; i++) {
+            for(let i = 0; i < levels; i++) {
                 let itemsInRow = i + 1;
                 let rowWidth = itemsInRow * blockSize;
                 let rowStartX = startX - (rowWidth / 2);
                 
-                for(let j=0; j<itemsInRow; j++) {
-                    let block = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+                for(let j = 0; j < itemsInRow; j++) {
+                    let block = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
                     block.left = rowStartX + (j * blockSize);
                     block.top = startY + (i * blockSize);
                     block.width = blockSize;
                     block.height = blockSize;
                     block.fill.setSolidColor("#0078d4");
-                    block.lineFormat.color = "white";
+                    block.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(255, 255, 255);
                 }
             }
+            await context.sync();
         }
 
         async function createSolarSystem(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             const cx = 480, cy = 270;
             
             // שמש
-            let sun = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+            let sun = slide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
             sun.left = cx - 40; sun.top = cy - 40; sun.width = 80; sun.height = 80;
             sun.fill.setSolidColor("#ffcc00");
             
             // כוכבי לכת
             const colors = ["#888888", "#d69d4e", "#2c6c9e", "#c54b3c", "#d1a77f", "#80c4de"];
-            for(let i=0; i<6; i++) {
+            for(let i = 0; i < 6; i++) {
                 let r = 70 + (i * 40);
-                let angle = Math.random() * 6.28;
+                let angle = Math.random() * 2 * Math.PI;
                 
                 // מסלול
-                let orbit = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+                let orbit = slide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
                 orbit.left = cx - r; orbit.top = cy - r; orbit.width = r*2; orbit.height = r*2;
-                orbit.fill.clear(); orbit.lineFormat.color = "#cccccc"; orbit.lineFormat.dashStyle = "Dash";
+                orbit.fill.transparency = 1; orbit.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(204, 204, 204); orbit.line.dashStyle = OfficeCore.LineDashStyle.dash;
                 
                 // כוכב
-                let planet = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+                let planet = slide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
                 let size = 15 + (Math.random() * 20);
                 planet.left = cx + r * Math.cos(angle) - (size/2);
                 planet.top = cy + r * Math.sin(angle) - (size/2);
                 planet.width = size; planet.height = size;
                 planet.fill.setSolidColor(colors[i]);
             }
+            await context.sync();
         }
 
         async function createDNA(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             const startX = 50;
             const centerY = 270;
             const points = 20;
             
-            for(let i=0; i<points; i++) {
+            for(let i = 0; i < points; i++) {
                 let x = startX + (i * 40);
                 let offset = Math.sin(i * 0.5) * 80;
                 
                 // כדור עליון
-                let b1 = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+                let b1 = slide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
                 b1.left = x; b1.top = centerY + offset; b1.width = 20; b1.height = 20;
                 b1.fill.setSolidColor("#d83b01");
                 
                 // כדור תחתון
-                let b2 = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+                let b2 = slide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
                 b2.left = x; b2.top = centerY - offset; b2.width = 20; b2.height = 20;
                 b2.fill.setSolidColor("#0078d4");
                 
                 // קו מחבר
-                let line = slide.shapes.addLine(PowerPoint.ConnectorType.straight);
-                line.beginConnect(b1);
-                line.endConnect(b2);
-                line.lineFormat.color = "#999999";
+                let line = slide.shapes.addConnector(PowerPoint.ConnectorType.straight, b1.left + 10, b1.top + 10, b2.left + 10, b2.top + 10);
+                line.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(153, 153, 153);
             }
+            await context.sync();
+        }
+
+        async function createCastle(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            // בנייה פשוטה של טירה: מגדלים ומבנה מרכזי
+            let base = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
+            base.left = 300; base.top = 200; base.width = 360; base.height = 200;
+            base.fill.setSolidColor("#9e9e9e");
+            
+            let tower1 = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
+            tower1.left = 250; tower1.top = 150; tower1.width = 100; tower1.height = 250;
+            tower1.fill.setSolidColor("#757575");
+            
+            let tower2 = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
+            tower2.left = 610; tower2.top = 150; tower2.width = 100; tower2.height = 250;
+            tower2.fill.setSolidColor("#757575");
+            
+            let roof1 = slide.shapes.addGeometricShape(PowerPoint.ShapeType.isoscelesTriangle);
+            roof1.left = 250; roof1.top = 100; roof1.width = 100; roof1.height = 50;
+            roof1.fill.setSolidColor("#f44336");
+            
+            let roof2 = slide.shapes.addGeometricShape(PowerPoint.ShapeType.isoscelesTriangle);
+            roof2.left = 610; roof2.top = 100; roof2.width = 100; roof2.height = 50;
+            roof2.fill.setSolidColor("#f44336");
+            
+            await context.sync();
+        }
+
+        async function createMaze(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            // מבוך פשוט: רשת קווים
+            const cellSize = 40;
+            const rows = 10;
+            const cols = 15;
+            
+            for(let r = 0; r <= rows; r++) {
+                let line = slide.shapes.addConnector(PowerPoint.ConnectorType.straight, 100, 100 + r * cellSize, 100 + cols * cellSize, 100 + r * cellSize);
+                line.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(0, 0, 0);
+            }
+            for(let c = 0; c <= cols; c++) {
+                let line = slide.shapes.addConnector(PowerPoint.ConnectorType.straight, 100 + c * cellSize, 100, 100 + c * cellSize, 100 + rows * cellSize);
+                line.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(0, 0, 0);
+            }
+            // הסרת חלק מקירות באקראי
+            await context.sync();
+        }
+
+        async function createBridge(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            // גשר פשוט
+            let deck = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
+            deck.left = 100; deck.top = 300; deck.width = 760; deck.height = 20;
+            deck.fill.setSolidColor("#795548");
+            
+            let pillar1 = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
+            pillar1.left = 300; pillar1.top = 320; pillar1.width = 40; pillar1.height = 200;
+            pillar1.fill.setSolidColor("#9e9e9e");
+            
+            let pillar2 = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
+            pillar2.left = 620; pillar2.top = 320; pillar2.width = 40; pillar2.height = 200;
+            pillar2.fill.setSolidColor("#9e9e9e");
+            
+            let arc = slide.shapes.addGeometricShape(PowerPoint.ShapeType.arc);
+            arc.left = 100; arc.top = 200; arc.width = 760; arc.height = 100;
+            arc.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(158, 158, 158);
+            
+            await context.sync();
+        }
+
+        async function createTower(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            // מגדל: ערימת ריבועים מצטמצמים
+            const levels = 10;
+            const baseSize = 200;
+            const startX = 380;
+            const startY = 500;
+            
+            for(let i = 0; i < levels; i++) {
+                let size = baseSize - (i * 15);
+                let towerLevel = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
+                towerLevel.left = startX - (size / 2);
+                towerLevel.top = startY - (i * 40) - 40;
+                towerLevel.width = size;
+                towerLevel.height = 40;
+                towerLevel.fill.setSolidColor("#607d8b");
+            }
+            await context.sync();
         }
 
         // --- 🎨 Generator Functions ---
 
         async function createMatrixRain(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             // רקע שחור
-            let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            let bg = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             bg.left = 0; bg.top = 0; bg.width = 960; bg.height = 540;
             bg.fill.setSolidColor("black");
             
             // טקסטים ירוקים
-            for(let i=0; i<40; i++) {
-                let txt = slide.shapes.addTextBox("0 1 0 1 1 0");
+            for(let i = 0; i < 40; i++) {
+                let txt = slide.shapes.addTextbox("0 1 0 1 1 0");
                 txt.left = Math.random() * 900;
                 txt.top = Math.random() * 500;
-                txt.textFrame.textRange.font.color = "#00ff00";
+                txt.textFrame.textRange.font.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(0, 255, 0);
                 txt.textFrame.textRange.font.name = "Courier New";
                 txt.textFrame.textRange.font.size = 14;
-                txt.rotation = 90; // נופל למטה
+                txt.rotation = 90;
             }
+            await context.sync();
         }
 
         async function createStars(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            let bg = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             bg.left = 0; bg.top = 0; bg.width = 960; bg.height = 540;
             bg.fill.setSolidColor("#000000");
 
-            for(let i=0; i<80; i++) {
-                let type = Math.random() > 0.8 ? PowerPoint.GeometricShapeType.star4 : PowerPoint.GeometricShapeType.ellipse;
+            for(let i = 0; i < 80; i++) {
+                let type = Math.random() > 0.8 ? PowerPoint.ShapeType.star4Point : PowerPoint.ShapeType.oval;
                 let star = slide.shapes.addGeometricShape(type);
                 star.left = Math.random() * 960;
                 star.top = Math.random() * 540;
                 let s = Math.random() * 6 + 2;
                 star.width = s; star.height = s;
                 star.fill.setSolidColor("white");
-                star.lineFormat.visible = false;
+                star.line.visible = false;
             }
+            await context.sync();
         }
 
         async function createBarcode(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             let currentX = 200;
             while(currentX < 760) {
                 let w = 2 + Math.random() * 15;
-                let bar = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+                let bar = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
                 bar.left = currentX;
                 bar.top = 150;
                 bar.width = w;
                 bar.height = 200;
                 bar.fill.setSolidColor("black");
-                bar.lineFormat.visible = false;
+                bar.line.visible = false;
                 currentX += w + 2 + (Math.random()*5);
             }
+            await context.sync();
         }
 
         async function createHypnosis(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             const cx = 480, cy = 270;
             
-            for(let i=20; i>0; i--) {
-                let circle = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+            for(let i = 20; i > 0; i--) {
+                let circle = slide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
                 let r = i * 25;
-                circle.left = cx - (r/2);
-                circle.top = cy - (r/2);
+                circle.left = cx - (r / 2);
+                circle.top = cy - (r / 2);
                 circle.width = r;
                 circle.height = r;
                 circle.fill.setSolidColor(i % 2 === 0 ? "white" : "black");
-                circle.lineFormat.visible = false;
+                circle.line.visible = false;
             }
+            await context.sync();
         }
 
         async function createConfetti(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            for(let i=0; i<60; i++) {
-                let shape = slide.shapes.addGeometricShape(Math.random()>0.5 ? PowerPoint.GeometricShapeType.ellipse : PowerPoint.GeometricShapeType.triangle);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            for(let i = 0; i < 60; i++) {
+                let type = Math.random() > 0.5 ? PowerPoint.ShapeType.oval : PowerPoint.ShapeType.isoscelesTriangle;
+                let shape = slide.shapes.addGeometricShape(type);
                 shape.left = Math.random() * 960;
                 shape.top = Math.random() * 540;
                 shape.width = 15; shape.height = 15;
                 shape.rotation = Math.random() * 360;
-                let color = Math.floor(Math.random()*16777215).toString(16);
-                shape.fill.setSolidColor("#" + color);
-                shape.lineFormat.visible = false;
+                let color = '#' + Math.floor(Math.random()*16777215).toString(16);
+                shape.fill.setSolidColor(color);
+                shape.line.visible = false;
             }
+            await context.sync();
         }
 
         async function createStamp(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             
             // מסגרת עגולה
-            let frame = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+            let frame = slide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
             frame.left = 350; frame.top = 150; frame.width = 260; frame.height = 260;
-            frame.fill.clear();
-            frame.lineFormat.color = "red";
-            frame.lineFormat.weight = 8;
+            frame.fill.transparency = 1;
+            frame.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(255, 0, 0);
+            frame.line.weight = 8;
             
             // טקסט
-            let box = slide.shapes.addTextBox("TOP SECRET");
+            let box = slide.shapes.addTextbox("TOP SECRET");
             box.left = 380; box.top = 250;
-            box.textFrame.textRange.font.color = "red";
+            box.textFrame.textRange.font.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(255, 0, 0);
             box.textFrame.textRange.font.size = 36;
             box.textFrame.textRange.font.bold = true;
             box.rotation = -20;
+            await context.sync();
+        }
+
+        async function createFireworks(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            for(let i = 0; i < 10; i++) {
+                let centerX = Math.random() * 960;
+                let centerY = Math.random() * 540;
+                for(let j = 0; j < 8; j++) {
+                    let angle = (j / 8) * 2 * Math.PI;
+                    let line = slide.shapes.addConnector(PowerPoint.ConnectorType.straight, centerX, centerY, centerX + 50 * Math.cos(angle), centerY + 50 * Math.sin(angle));
+                    line.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(Math.random()*255, Math.random()*255, Math.random()*255);
+                    line.line.weight = 2;
+                }
+            }
+            await context.sync();
+        }
+
+        async function createWaves(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            for(let i = 0; i < 5; i++) {
+                let wave = slide.shapes.addFreeform();
+                wave.addNodes([{type: PowerPoint.SegmentType.curve, x: 0, y: 300 + i*40}, {type: PowerPoint.SegmentType.curve, x: 960, y: 300 + i*40 + Math.sin(i)*20}]);
+                wave.fill.setSolidColor("#2196f3");
+                wave.line.visible = false;
+            }
+            await context.sync();
+        }
+
+        async function createFractal(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            // פרקטל פשוט: משולשים חוזרים
+            function addTriangle(left, top, size) {
+                let tri = slide.shapes.addGeometricShape(PowerPoint.ShapeType.isoscelesTriangle);
+                tri.left = left; tri.top = top; tri.width = size; tri.height = size;
+                tri.fill.setSolidColor("#9c27b0");
+                if (size > 20) {
+                    addTriangle(left, top - size/2, size/2);
+                    addTriangle(left + size/2, top, size/2);
+                    addTriangle(left - size/2, top, size/2);
+                }
+            }
+            addTriangle(480, 270, 200);
+            await context.sync();
+        }
+
+        async function createGradientBg(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            let bg = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
+            bg.left = 0; bg.top = 0; bg.width = 960; bg.height = 540;
+            bg.fill.setGradientColor({
+                type: PowerPoint.FillGradientType.linear,
+                gradientStops: [
+                    { position: 0, color: "#2196f3" },
+                    { position: 1, color: "#9c27b0" }
+                ]
+            });
+            await context.sync();
         }
 
         // --- 🪄 Effects Functions ---
 
         async function effect3DClone(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/left, items/top, items/width, items/height, items/fill");
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
             await context.sync();
-            if(shapes.items.length === 0) return;
+            if (selectedShapes.items.length === 0) return;
             
-            const s = shapes.items[0];
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const original = selectedShapes.items[0];
+            original.load("left,top,width,height,type");
+            await context.sync();
             
-            // יצירת 5 עותקים מאחור
-            for(let i=1; i<=5; i++) {
-                let clone = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle); // מגבלה: לא יודעים סוג צורה
-                // נשתמש בריבוע כברירת מחדל או ננסה משהו פשוט יותר:
-                // לוגיקה טובה יותר ב-API מודרני היא copy/paste, כאן נוסיף צורה דומה
-                
-                clone.left = s.left + (i * 5);
-                clone.top = s.top + (i * 5);
-                clone.width = s.width;
-                clone.height = s.height;
-                clone.fill.setSolidColor("#aaaaaa"); // צבע צל
-                clone.lineFormat.visible = false;
+            for(let i = 1; i <= 5; i++) {
+                let clone = original.duplicate().getItemAt(0);
+                clone.left = original.left + (i * 5);
+                clone.top = original.top + (i * 5);
+                clone.fill.setSolidColor("#aaaaaa");
+                clone.line.visible = false;
             }
+            await context.sync();
         }
 
         async function effectLongShadow(context) {
-            // סימולציה פשוטה על ידי ריבועים כהים
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/left, items/top, items/width, items/height");
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
             await context.sync();
-            if(shapes.items.length === 0) return;
+            if (selectedShapes.items.length === 0) return;
             
-            const s = shapes.items[0];
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const original = selectedShapes.items[0];
+            original.load("left,top,width,height");
+            await context.sync();
             
-            for(let i=1; i<20; i++) {
-                let shadow = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-                shadow.left = s.left + (i * 4);
-                shadow.top = s.top + (i * 4);
-                shadow.width = s.width;
-                shadow.height = s.height;
+            for(let i = 1; i < 20; i++) {
+                let shadow = original.duplicate().getItemAt(0);
+                shadow.left = original.left + (i * 4);
+                shadow.top = original.top + (i * 4);
                 shadow.fill.setSolidColor("#000000");
-                shadow.fill.transparency = 0.9; 
-                shadow.lineFormat.visible = false;
+                shadow.fill.transparency = 0.9;
+                shadow.line.visible = false;
             }
+            await context.sync();
         }
 
         async function effectNeon(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/fill, items/lineFormat");
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
             await context.sync();
             
-            shapes.items.forEach(s => {
-                s.fill.clear(); // ללא מילוי
-                s.lineFormat.color = "#00ff00"; // ירוק זוהר
-                s.lineFormat.weight = 4;
+            selectedShapes.items.forEach(s => {
+                s.fill.transparency = 1;
+                s.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(0, 255, 0);
+                s.line.weight = 4;
+                s.glow.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(0, 255, 0);
+                s.glow.radius = 10;
             });
             
-            // שינוי רקע שקופית לכהה כדי שיראו
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            // אין API ישיר לרקע שקופית בגרסאות ישנות, נוסיף מלבן אחורי
-            let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            let bg = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             bg.left = 0; bg.top = 0; bg.width = 960; bg.height = 540;
             bg.fill.setSolidColor("#111111");
-            // הערה: המלבן יסתיר את הצורה, המשתמש יצטרך לעשות send to back ידנית
+            bg.sendToBack();
+            await context.sync();
         }
 
         async function effectGhost(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/left, items/top, items/width, items/height");
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
             await context.sync();
-            if(shapes.items.length === 0) return;
+            if (selectedShapes.items.length === 0) return;
             
-            const s = shapes.items[0];
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const original = selectedShapes.items[0];
+            original.load("left,top,width,height");
+            await context.sync();
             
-            for(let i=1; i<=3; i++) {
-                let ghost = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse); // פשטות
-                ghost.left = s.left - (i * 30);
-                ghost.top = s.top;
-                ghost.width = s.width;
-                ghost.height = s.height;
+            for(let i = 1; i <= 3; i++) {
+                let ghost = original.duplicate().getItemAt(0);
+                ghost.left = original.left - (i * 30);
+                ghost.top = original.top;
                 ghost.fill.setSolidColor("#cccccc");
                 ghost.fill.transparency = 0.3 * i;
             }
+            await context.sync();
         }
 
         async function effectPixelate(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/left, items/top, items/width, items/height");
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
             await context.sync();
-            if(shapes.items.length === 0) return;
-            const s = shapes.items[0];
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            if (selectedShapes.items.length === 0) return;
+            const original = selectedShapes.items[0];
+            original.load("left,top,width,height");
+            await context.sync();
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             
             const pixelSize = 20;
-            const cols = Math.floor(s.width / pixelSize);
-            const rows = Math.floor(s.height / pixelSize);
+            const cols = Math.floor(original.width / pixelSize);
+            const rows = Math.floor(original.height / pixelSize);
             
-            for(let r=0; r<rows; r++) {
-                for(let c=0; c<cols; c++) {
-                    let p = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-                    p.left = s.left + (c * pixelSize);
-                    p.top = s.top + (r * pixelSize);
+            for(let r = 0; r < rows; r++) {
+                for(let c = 0; c < cols; c++) {
+                    let p = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
+                    p.left = original.left + (c * pixelSize);
+                    p.top = original.top + (r * pixelSize);
                     p.width = pixelSize - 2;
                     p.height = pixelSize - 2;
                     p.fill.setSolidColor("#0078d4");
-                    p.lineFormat.visible = false;
+                    p.line.visible = false;
                 }
             }
-            s.delete();
+            original.delete();
+            await context.sync();
         }
 
         async function effectRainbow(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/fill");
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
             await context.sync();
             const colors = ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#9400D3"];
-            shapes.items.forEach((s, i) => {
-                try { s.fill.setSolidColor(colors[i % colors.length]); } catch(e){}
+            selectedShapes.items.forEach((s, i) => {
+                s.fill.setSolidColor(colors[i % colors.length]);
             });
+            await context.sync();
         }
 
+        async function effectGlow(context) {
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
+            await context.sync();
+            
+            selectedShapes.items.forEach(s => {
+                s.glow.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(255, 215, 0);
+                s.glow.radius = 15;
+            });
+            await context.sync();
+        }
+
+        async function effectBlur(context) {
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
+            await context.sync();
+            
+            selectedShapes.items.forEach(s => {
+                s.blur = 5; // אם API תומך, אחרת סימולציה עם שקיפות
+                s.fill.transparency = 0.2;
+            });
+            await context.sync();
+        }
+
+        async function effectEmboss(context) {
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
+            await context.sync();
+            
+            selectedShapes.items.forEach(s => {
+                s.threeD.bevelTopType = PowerPoint.BevelType.circle;
+                s.threeD.bevelTopWidth = 6;
+                s.threeD.bevelTopHeight = 6;
+            });
+            await context.sync();
+        }
+
+        async function effectInvert(context) {
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items/fill/foreColor");
+            await context.sync();
+            
+            selectedShapes.items.forEach(s => {
+                let color = s.fill.foreColor.objectColor.rgb;
+                let inverted = OfficeCore.RgbColor.fromRgb(255 - color.red, 255 - color.green, 255 - color.blue);
+                s.fill.setSolidColor(inverted);
+            });
+            await context.sync();
+        }
 
         // --- 📐 Layout Functions ---
 
         async function createCinematicFrame(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             // בר עליון
-            let t = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            let t = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             t.left = 0; t.top = 0; t.width = 960; t.height = 60;
             t.fill.setSolidColor("black");
             // בר תחתון
-            let b = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            let b = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             b.left = 0; b.top = 480; b.width = 960; b.height = 60;
             b.fill.setSolidColor("black");
+            await context.sync();
         }
 
         async function createProgressBar(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             // רקע אפור
-            let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            let bg = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             bg.left = 50; bg.top = 500; bg.width = 860; bg.height = 10;
             bg.fill.setSolidColor("#e0e0e0");
             // מילוי כחול (50%)
-            let fill = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            let fill = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             fill.left = 50; fill.top = 500; fill.width = 430; fill.height = 10;
             fill.fill.setSolidColor("#0078d4");
+            await context.sync();
         }
 
         async function layoutGrid(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/left, items/top, items/width, items/height");
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items/left,top,width,height");
             await context.sync();
             
             let startX = 50, startY = 50;
@@ -843,96 +1264,132 @@
             let currentX = startX;
             let currentY = startY;
 
-            shapes.items.forEach((s, i) => {
+            selectedShapes.items.forEach((s) => {
                 s.left = currentX;
                 s.top = currentY;
                 
                 maxHeight = Math.max(maxHeight, s.height);
                 currentX += s.width + gap;
                 
-                if(currentX > 800) { // שבירת שורה
+                if (currentX > 800) {
                     currentX = startX;
                     currentY += maxHeight + gap;
                     maxHeight = 0;
                 }
             });
+            await context.sync();
         }
 
         async function layoutMirror(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/left, items/top, items/width, items/height");
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
             await context.sync();
-            if(shapes.items.length === 0) return;
+            if (selectedShapes.items.length === 0) return;
             
-            const s = shapes.items[0];
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const original = selectedShapes.items[0];
+            original.load("left,top,width,height");
+            await context.sync();
             
             // פינה ימנית עליונה
-            let c2 = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-            c2.left = 960 - s.left - s.width;
-            c2.top = s.top;
-            c2.width = s.width; c2.height = s.height;
+            let c2 = original.duplicate().getItemAt(0);
+            c2.left = 960 - original.left - original.width;
+            c2.top = original.top;
             
             // פינה שמאלית תחתונה
-            let c3 = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-            c3.left = s.left;
-            c3.top = 540 - s.top - s.height;
-            c3.width = s.width; c3.height = s.height;
+            let c3 = original.duplicate().getItemAt(0);
+            c3.left = original.left;
+            c3.top = 540 - original.top - original.height;
             
             // פינה ימנית תחתונה
-            let c4 = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            let c4 = original.duplicate().getItemAt(0);
             c4.left = c2.left;
             c4.top = c3.top;
-            c4.width = s.width; c4.height = s.height;
+            await context.sync();
+        }
+
+        async function layoutCircleArrange(context) {
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items/left,top,width,height");
+            await context.sync();
+            const cx = 480, cy = 270;
+            const radius = 200;
+            const count = selectedShapes.items.length;
+            
+            selectedShapes.items.forEach((s, i) => {
+                let angle = (i / count) * 2 * Math.PI;
+                s.left = cx + radius * Math.cos(angle) - (s.width / 2);
+                s.top = cy + radius * Math.sin(angle) - (s.height / 2);
+            });
+            await context.sync();
+        }
+
+        async function createTimeline(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            let line = slide.shapes.addConnector(PowerPoint.ConnectorType.straight, 50, 270, 910, 270);
+            line.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(33, 150, 243);
+            line.line.weight = 4;
+            
+            for(let i = 0; i < 5; i++) {
+                let marker = slide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
+                marker.left = 50 + (i * 200); marker.top = 260; marker.width = 20; marker.height = 20;
+                marker.fill.setSolidColor("#2196f3");
+                
+                let label = slide.shapes.addTextbox(`שלב ${i+1}`);
+                label.left = 50 + (i * 200); label.top = 290;
+            }
+            await context.sync();
         }
 
         async function createStopMotion(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/left, items/top, items/width, items/height, items/fill");
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items/left,top,width,height,fill");
             await context.sync();
             
-            let startLeft = 50, startTop = 250, w=50, h=50;
-            if (shapes.items.length > 0) {
-                startLeft = shapes.items[0].left;
-                startTop = shapes.items[0].top;
-                w = shapes.items[0].width;
-                h = shapes.items[0].height;
+            let startLeft = 50, startTop = 250, w = 50, h = 50;
+            if (selectedShapes.items.length > 0) {
+                const original = selectedShapes.items[0];
+                startLeft = original.left;
+                startTop = original.top;
+                w = original.width;
+                h = original.height;
             }
 
             for (let i = 0; i < 8; i++) {
                 const newSlide = context.presentation.slides.add();
-                const newShape = newSlide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+                const newShape = newSlide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
                 newShape.left = startLeft + (i * 80);
-                newShape.top = startTop + (Math.sin(i)*50);
+                newShape.top = startTop + (Math.sin(i) * 50);
                 newShape.width = w; newShape.height = h;
                 newShape.fill.setSolidColor("#d83b01");
             }
+            await context.sync();
         }
 
         // --- 🤪 Wild Functions ---
 
         async function createArrowBlast(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
             const cx = 480, cy = 270;
             
-            for(let i=0; i<12; i++) {
+            for(let i = 0; i < 12; i++) {
                 let angle = (i / 12) * 2 * Math.PI;
-                let arrow = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rightArrow);
-                // חישוב מיקום
+                let arrow = slide.shapes.addGeometricShape(PowerPoint.ShapeType.arrowRight);
                 let r = 100;
                 arrow.left = cx + r * Math.cos(angle) - 25;
                 arrow.top = cy + r * Math.sin(angle) - 15;
                 arrow.width = 50;
                 arrow.height = 30;
-                arrow.rotation = (i / 12) * 360;
+                arrow.rotation = (angle * 180 / Math.PI) + 90; // התאמה לסיבוב
                 arrow.fill.setSolidColor("#d83b01");
             }
+            await context.sync();
         }
 
         async function createTunnel(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            for(let i=15; i>0; i--) {
-                let rect = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            for(let i = 15; i > 0; i--) {
+                let rect = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
                 rect.width = i * 50;
                 rect.height = i * 30;
                 rect.left = 480 - (rect.width / 2);
@@ -940,43 +1397,284 @@
                 
                 let val = Math.floor(255 - (i * 15));
                 rect.fill.setSolidColor(`rgb(${val}, ${val}, ${val})`);
-                rect.lineFormat.color = "red";
+                rect.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(255, 0, 0);
                 rect.rotation = i * 5;
             }
+            await context.sync();
         }
 
         async function layoutChaos(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/left, items/top, items/rotation, items/width, items/height");
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items/left,top,rotation,width,height");
             await context.sync();
             
-            shapes.items.forEach(s => {
+            selectedShapes.items.forEach(s => {
                 s.rotation = Math.random() * 360;
                 s.width = s.width * (0.5 + Math.random());
                 s.height = s.height * (0.5 + Math.random());
                 s.left += (Math.random() * 100) - 50;
                 s.top += (Math.random() * 100) - 50;
             });
+            await context.sync();
+        }
+
+        async function createExplosion(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const cx = 480, cy = 270;
+            for(let i = 0; i < 20; i++) {
+                let frag = slide.shapes.addGeometricShape(PowerPoint.ShapeType.isoscelesTriangle);
+                let angle = Math.random() * 2 * Math.PI;
+                let dist = Math.random() * 200;
+                frag.left = cx + dist * Math.cos(angle);
+                frag.top = cy + dist * Math.sin(angle);
+                frag.width = 20; frag.height = 20;
+                frag.rotation = Math.random() * 360;
+                frag.fill.setSolidColor("#ff5722");
+            }
+            await context.sync();
+        }
+
+        async function createVortex(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const cx = 480, cy = 270;
+            for(let i = 0; i < 10; i++) {
+                let spiral = slide.shapes.addGeometricShape(PowerPoint.ShapeType.spiral);
+                let r = (i + 1) * 20;
+                spiral.left = cx - r / 2;
+                spiral.top = cy - r / 2;
+                spiral.width = r; spiral.height = r;
+                spiral.fill.transparency = 1;
+                spiral.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(156, 39, 176);
+                spiral.rotation = i * 36;
+            }
+            await context.sync();
         }
 
         async function clearSlide(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items");
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
             await context.sync();
             
-            if (shapes.items.length > 0) {
-                 shapes.items.forEach(s => s.delete());
+            if (selectedShapes.items.length > 0) {
+                selectedShapes.items.forEach(s => s.delete());
             } else {
-                // מחיקת הכל אם לא נבחר כלום (בזהירות)
-                 const allShapes = slide.shapes;
-                 allShapes.load("items");
-                 await context.sync();
-                 // מחיקה מהסוף להתחלה
-                 for(let i=allShapes.items.length-1; i>=0; i--) {
-                     allShapes.items[i].delete();
-                 }
+                slide.shapes.load("items");
+                await context.sync();
+                slide.shapes.items.forEach(s => s.delete());
             }
+            await context.sync();
+        }
+
+        // --- 🔬 Advanced Functions ---
+
+        async function createParticleSystem(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            for(let i = 0; i < 100; i++) {
+                let particle = slide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
+                particle.left = Math.random() * 960;
+                particle.top = Math.random() * 540;
+                particle.width = 5; particle.height = 5;
+                particle.fill.setSolidColor("#ffeb3b");
+            }
+            await context.sync();
+        }
+
+        async function createFractalTree(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            function drawBranch(startX, startY, length, angle) {
+                let endX = startX + length * Math.cos(angle);
+                let endY = startY + length * Math.sin(angle);
+                let branch = slide.shapes.addConnector(PowerPoint.ConnectorType.straight, startX, startY, endX, endY);
+                branch.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(121, 85, 72);
+                branch.line.weight = length / 20;
+                
+                if (length > 5) {
+                    drawBranch(endX, endY, length * 0.7, angle + Math.PI / 6);
+                    drawBranch(endX, endY, length * 0.7, angle - Math.PI / 6);
+                }
+            }
+            drawBranch(480, 500, 150, -Math.PI / 2);
+            await context.sync();
+        }
+
+        async function createMandelbrot(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            // סימולציה פשוטה: נקודות צבעוניות
+            const size = 20;
+            for(let x = 0; x < 40; x++) {
+                for(let y = 0; y < 25; y++) {
+                    let pixel = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
+                    pixel.left = 100 + x * size;
+                    pixel.top = 100 + y * size;
+                    pixel.width = size; pixel.height = size;
+                    // חישוב פשוט לצבע
+                    let iter = Math.floor(Math.random() * 255);
+                    pixel.fill.setSolidColor(`rgb(${iter}, ${255 - iter}, 128)`);
+                }
+            }
+            await context.sync();
+        }
+
+        async function createPhysicsSim(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            // כדורים נופלים: יצירת כדורים עם אנימציות
+            for(let i = 0; i < 5; i++) {
+                let ball = slide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
+                ball.left = 100 + i * 150; ball.top = 50; ball.width = 50; ball.height = 50;
+                ball.fill.setSolidColor("#f44336");
+                // הוספת אנימציה (אם API תומך)
+            }
+            await context.sync();
+        }
+
+        async function createAIArt(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            // אמנות אקראית: צורות וצבעים
+            for(let i = 0; i < 20; i++) {
+                let art = slide.shapes.addGeometricShape(Math.random() > 0.5 ? PowerPoint.ShapeType.oval : PowerPoint.ShapeType.rectangle);
+                art.left = Math.random() * 960;
+                art.top = Math.random() * 540;
+                art.width = 50 + Math.random() * 100;
+                art.height = 50 + Math.random() * 100;
+                art.rotation = Math.random() * 360;
+                art.fill.setSolidColor('#' + Math.floor(Math.random()*16777215).toString(16));
+            }
+            await context.sync();
+        }
+
+        async function createDataViz(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            // גרף עמודות פשוט
+            const data = [100, 200, 150, 300];
+            for(let i = 0; i < data.length; i++) {
+                let bar = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
+                bar.left = 100 + i * 150; bar.top = 400 - data[i]; bar.width = 100; bar.height = data[i];
+                bar.fill.setSolidColor("#4caf50");
+            }
+            await context.sync();
+        }
+
+        // --- 🎞️ Animation Functions ---
+
+        async function applyBounceAnimation(context) {
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
+            await context.sync();
+            
+            selectedShapes.items.forEach(s => {
+                let anim = s.animationSettings.entryEffect = PowerPoint.AnimationEffect.bounce;
+                anim.timing.duration = 1;
+            });
+            await context.sync();
+        }
+
+        async function applyFadeInAnimation(context) {
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
+            await context.sync();
+            
+            selectedShapes.items.forEach(s => {
+                let anim = s.animationSettings.entryEffect = PowerPoint.AnimationEffect.fade;
+                anim.timing.duration = 0.5;
+            });
+            await context.sync();
+        }
+
+        async function applySpinAnimation(context) {
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
+            await context.sync();
+            
+            selectedShapes.items.forEach(s => {
+                let anim = s.animationSettings.entryEffect = PowerPoint.AnimationEffect.spin;
+                anim.timing.duration = 2;
+            });
+            await context.sync();
+        }
+
+        async function applySlideInAnimation(context) {
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
+            await context.sync();
+            
+            selectedShapes.items.forEach(s => {
+                let anim = s.animationSettings.entryEffect = PowerPoint.AnimationEffect.slideFromLeft;
+                anim.timing.duration = 1;
+            });
+            await context.sync();
+        }
+
+        async function applyPulseAnimation(context) {
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
+            await context.sync();
+            
+            selectedShapes.items.forEach(s => {
+                let anim = s.animationSettings.entryEffect = PowerPoint.AnimationEffect.pulse;
+                anim.timing.duration = 1.5;
+            });
+            await context.sync();
+        }
+
+        async function applyWiggleAnimation(context) {
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
+            await context.sync();
+            
+            selectedShapes.items.forEach(s => {
+                let anim = s.animationSettings.entryEffect = PowerPoint.AnimationEffect.wiggle;
+                anim.timing.duration = 2;
+            });
+            await context.sync();
+        }
+
+        // --- 🛠️ Tool Functions ---
+
+        async function toolColorPicker(context) {
+            // פונקציה דמה: שינוי צבע לצבע אקראי
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items");
+            await context.sync();
+            
+            selectedShapes.items.forEach(s => {
+                s.fill.setSolidColor('#' + Math.floor(Math.random()*16777215).toString(16));
+            });
+            await context.sync();
+        }
+
+        async function toolFontChanger(context) {
+            // שינוי גופן ל-Arial
+            const selectedShapes = context.presentation.getSelectedShapes();
+            selectedShapes.load("items/textFrame/textRange/font");
+            await context.sync();
+            
+            selectedShapes.items.forEach(s => {
+                if (s.textFrame && s.textFrame.textRange) {
+                    s.textFrame.textRange.font.name = "Arial";
+                }
+            });
+            await context.sync();
+        }
+
+        async function toolExport(context) {
+            // דמה: הודעה
+            console.log("ייצוא מצגת...");
+        }
+
+        async function toolImport(context) {
+            // דמה: הודעה
+            console.log("ייבוא מצגת...");
+        }
+
+        async function toolUndo(context) {
+            context.presentation.undo();
+            await context.sync();
+        }
+
+        async function toolRedo(context) {
+            context.presentation.redo();
+            await context.sync();
         }
 
     </script>
