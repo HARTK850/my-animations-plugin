@@ -516,7 +516,7 @@
         async function run(func) {
             try {
                 document.getElementById("status").innerText = "⚙️ עובד על זה...";
-                document.getElementById("status").style.background = var(--secondary);
+                document.getElementById("status").style.background = (--secondary);
                 
                 await PowerPoint.run(async (context) => {
                     await func(context);
@@ -1680,4 +1680,5 @@
     </script>
 </body>
 </html>
+
 
