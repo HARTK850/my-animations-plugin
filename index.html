@@ -7,8 +7,7 @@
     <title>Super Animator ULTRA</title>
     <!-- מונע שגיאת favicon -->
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-    
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>    
     <style>
         :root {
             --primary: #ff5722;
@@ -504,14 +503,15 @@
             event.currentTarget.classList.add('active');
         }
 
-        Office.onReady((info) => {
-            if (info.host === Office.HostType.PowerPoint) {
-                document.getElementById("status").innerText = "מחובר ל-PowerPoint ✅";
-                bindEvents();
-            } else {
-                document.getElementById("status").innerText = "פתח בתוך PowerPoint";
-            }
-        });
+        > {
+            Office.onReady((info) => {
+    if (info.host === Office.HostType.PowerPoint) {
+        document.getElementById("status").innerText = "מחובר ל-PowerPoint ✅";
+        bindEvents();
+    } else {
+        document.getElementById("status").innerText = "פתח בתוך PowerPoint";
+    }
+});
 
         async function run(func) {
             try {
@@ -1680,3 +1680,4 @@
     </script>
 </body>
 </html>
+
