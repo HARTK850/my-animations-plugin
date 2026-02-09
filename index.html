@@ -593,7 +593,7 @@ async function run(func) {
         // --- 🏗️ Structures Functions ---
 
         async function createCityscape(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const slideWidth = 960;
             const slideHeight = 540;
             const buildingWidth = 40;
@@ -633,7 +633,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createBrickWall(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const brickW = 60;
             const brickH = 25;
             const rows = 10;
@@ -657,7 +657,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createHoneycomb(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const size = 40;
             const rows = 6;
             const cols = 8;
@@ -681,7 +681,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createPyramid(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const levels = 8;
             const blockSize = 40;
             const startX = 480;
@@ -706,7 +706,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createSolarSystem(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const cx = 480, cy = 270;
             
             // שמש
@@ -737,7 +737,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createDNA(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const startX = 50;
             const centerY = 270;
             const points = 20;
@@ -764,7 +764,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createCastle(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             // בנייה פשוטה של טירה: מגדלים ומבנה מרכזי
             let base = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             base.left = 300; base.top = 200; base.width = 360; base.height = 200;
@@ -790,7 +790,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createMaze(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             // מבוך פשוט: רשת קווים
             const cellSize = 40;
             const rows = 10;
@@ -809,7 +809,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createBridge(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             // גשר פשוט
             let deck = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             deck.left = 100; deck.top = 300; deck.width = 760; deck.height = 20;
@@ -831,7 +831,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createTower(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             // מגדל: ערימת ריבועים מצטמצמים
             const levels = 10;
             const baseSize = 200;
@@ -853,7 +853,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         // --- 🎨 Generator Functions ---
 
         async function createMatrixRain(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             // רקע שחור
             let bg = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             bg.left = 0; bg.top = 0; bg.width = 960; bg.height = 540;
@@ -873,7 +873,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createStars(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             let bg = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             bg.left = 0; bg.top = 0; bg.width = 960; bg.height = 540;
             bg.fill.setSolidColor("#000000");
@@ -892,7 +892,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createBarcode(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             let currentX = 200;
             while(currentX < 760) {
                 let w = 2 + Math.random() * 15;
@@ -909,7 +909,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createHypnosis(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const cx = 480, cy = 270;
             
             for(let i = 20; i > 0; i--) {
@@ -926,7 +926,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createConfetti(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             for(let i = 0; i < 60; i++) {
                 let type = Math.random() > 0.5 ? PowerPoint.ShapeType.oval : PowerPoint.ShapeType.isoscelesTriangle;
                 let shape = slide.shapes.addGeometricShape(type);
@@ -942,7 +942,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createStamp(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             
             // מסגרת עגולה
             let frame = slide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
@@ -962,7 +962,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createFireworks(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             for(let i = 0; i < 10; i++) {
                 let centerX = Math.random() * 960;
                 let centerY = Math.random() * 540;
@@ -977,7 +977,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createWaves(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             for(let i = 0; i < 5; i++) {
                 let wave = slide.shapes.addFreeform();
                 wave.addNodes([{type: PowerPoint.SegmentType.curve, x: 0, y: 300 + i*40}, {type: PowerPoint.SegmentType.curve, x: 960, y: 300 + i*40 + Math.sin(i)*20}]);
@@ -988,7 +988,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createFractal(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             // פרקטל פשוט: משולשים חוזרים
             function addTriangle(left, top, size) {
                 let tri = slide.shapes.addGeometricShape(PowerPoint.ShapeType.isoscelesTriangle);
@@ -1005,7 +1005,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createGradientBg(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             let bg = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             bg.left = 0; bg.top = 0; bg.width = 960; bg.height = 540;
             bg.fill.setGradientColor({
@@ -1026,7 +1026,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
             await context.sync();
             if (selectedShapes.items.length === 0) return;
             
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const original = selectedShapes.items[0];
             original.load("left,top,width,height,type");
             await context.sync();
@@ -1047,7 +1047,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
             await context.sync();
             if (selectedShapes.items.length === 0) return;
             
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const original = selectedShapes.items[0];
             original.load("left,top,width,height");
             await context.sync();
@@ -1076,7 +1076,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
                 s.glow.radius = 10;
             });
             
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             let bg = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             bg.left = 0; bg.top = 0; bg.width = 960; bg.height = 540;
             bg.fill.setSolidColor("#111111");
@@ -1090,7 +1090,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
             await context.sync();
             if (selectedShapes.items.length === 0) return;
             
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const original = selectedShapes.items[0];
             original.load("left,top,width,height");
             await context.sync();
@@ -1113,7 +1113,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
             const original = selectedShapes.items[0];
             original.load("left,top,width,height");
             await context.sync();
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             
             const pixelSize = 20;
             const cols = Math.floor(original.width / pixelSize);
@@ -1198,7 +1198,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         // --- 📐 Layout Functions ---
 
         async function createCinematicFrame(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             // בר עליון
             let t = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             t.left = 0; t.top = 0; t.width = 960; t.height = 60;
@@ -1211,7 +1211,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createProgressBar(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             // רקע אפור
             let bg = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
             bg.left = 50; bg.top = 500; bg.width = 860; bg.height = 10;
@@ -1256,7 +1256,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
             await context.sync();
             if (selectedShapes.items.length === 0) return;
             
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const original = selectedShapes.items[0];
             original.load("left,top,width,height");
             await context.sync();
@@ -1295,7 +1295,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createTimeline(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             let line = slide.shapes.addConnector(PowerPoint.ConnectorType.straight, 50, 270, 910, 270);
             line.line.color.objectColor.rgb = OfficeCore.RgbColor.fromRgb(33, 150, 243);
             line.line.weight = 4;
@@ -1339,7 +1339,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         // --- 🤪 Wild Functions ---
 
         async function createArrowBlast(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const cx = 480, cy = 270;
             
             for(let i = 0; i < 12; i++) {
@@ -1357,7 +1357,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createTunnel(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             for(let i = 15; i > 0; i--) {
                 let rect = slide.shapes.addGeometricShape(PowerPoint.ShapeType.rectangle);
                 rect.width = i * 50;
@@ -1389,7 +1389,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createExplosion(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const cx = 480, cy = 270;
             for(let i = 0; i < 20; i++) {
                 let frag = slide.shapes.addGeometricShape(PowerPoint.ShapeType.isoscelesTriangle);
@@ -1405,7 +1405,7 @@ let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle)
         }
 
         async function createVortex(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const cx = 480, cy = 270;
             for(let i = 0; i < 10; i++) {
                 let spiral = slide.shapes.addGeometricShape(PowerPoint.ShapeType.spiral);
@@ -1435,7 +1435,7 @@ async function clearSlide(context) {
         // --- 🔬 Advanced Functions ---
 
         async function createParticleSystem(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             for(let i = 0; i < 100; i++) {
                 let particle = slide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
                 particle.left = Math.random() * 960;
@@ -1447,7 +1447,7 @@ async function clearSlide(context) {
         }
 
         async function createFractalTree(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             function drawBranch(startX, startY, length, angle) {
                 let endX = startX + length * Math.cos(angle);
                 let endY = startY + length * Math.sin(angle);
@@ -1465,7 +1465,7 @@ async function clearSlide(context) {
         }
 
         async function createMandelbrot(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             // סימולציה פשוטה: נקודות צבעוניות
             const size = 20;
             for(let x = 0; x < 40; x++) {
@@ -1483,7 +1483,7 @@ async function clearSlide(context) {
         }
 
         async function createPhysicsSim(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             // כדורים נופלים: יצירת כדורים עם אנימציות
             for(let i = 0; i < 5; i++) {
                 let ball = slide.shapes.addGeometricShape(PowerPoint.ShapeType.oval);
@@ -1495,7 +1495,7 @@ async function clearSlide(context) {
         }
 
         async function createAIArt(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             // אמנות אקראית: צורות וצבעים
             for(let i = 0; i < 20; i++) {
                 let art = slide.shapes.addGeometricShape(Math.random() > 0.5 ? PowerPoint.ShapeType.oval : PowerPoint.ShapeType.rectangle);
@@ -1510,7 +1510,7 @@ async function clearSlide(context) {
         }
 
         async function createDataViz(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0).slide;
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             // גרף עמודות פשוט
             const data = [100, 200, 150, 300];
             for(let i = 0; i < data.length; i++) {
@@ -1646,6 +1646,7 @@ async function clearSlide(context) {
     </script>
 </body>
 </html>
+
 
 
 
