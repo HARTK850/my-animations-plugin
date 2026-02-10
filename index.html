@@ -1,721 +1,755 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html>
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Infinity Animator X</title>
+    <title>Super Animator ULTRA</title>
+    <!-- מונע שגיאת favicon -->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-    <!-- אייקונים -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-color: #f0f2f5;
-            --sidebar-bg: #ffffff;
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --accent: #ec4899;
-            --text-main: #1f2937;
-            --text-sub: #6b7280;
-            --card-bg: #ffffff;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --radius: 12px;
+            --primary: #d83b01;
+            --secondary: #0078d4;
+            --purple: #8764b8;
+            --teal: #038387;
+            --pink: #e3008c;
+            --dark: #201f1e;
+            --bg: #f3f2f1;
+            --card: #ffffff;
         }
-
-        * { box-sizing: border-box; outline: none; }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
             margin: 0;
             padding: 0;
-            color: var(--text-main);
+            direction: rtl;
             overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
+            user-select: none;
+            padding-bottom: 50px;
         }
 
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #2b0050 0%, #8764b8 100%);
             color: white;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
-            position: relative;
-            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        
-        header h1 { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
-        header p { margin: 5px 0 0; opacity: 0.9; font-size: 13px; font-weight: 500; }
+        .header h1 { margin: 0; font-size: 22px; letter-spacing: 1px; font-weight: 800; }
+        .header p { margin: 5px 0 0; font-size: 11px; opacity: 0.8; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* Navigation */
-        .nav-container {
+        /* Tabs Navigation - Scrollable */
+        .tabs-container {
             background: white;
-            padding: 10px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 68px;
+            z-index: 90;
             overflow-x: auto;
             white-space: nowrap;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
-        .nav-container::-webkit-scrollbar { display: none; }
+        .tabs-container::-webkit-scrollbar { display: none; }
 
-        .nav-pills {
+        .tabs {
             display: inline-flex;
-            gap: 8px;
+            min-width: 100%;
         }
-
-        .nav-btn {
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid transparent;
-            background: transparent;
-            color: var(--text-sub);
-            font-size: 13px;
-            font-weight: 600;
+        
+        .tab-btn {
+            padding: 12px 15px;
+            border: none;
+            background: white;
             cursor: pointer;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            color: #605e5c;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            font-size: 13px;
+        }
+        .tab-btn:hover { background: #f8f8f8; color: var(--secondary); }
+        .tab-btn.active {
+            color: var(--purple);
+            border-bottom-color: var(--purple);
+            background: #fdf3ff;
         }
 
-        .nav-btn:hover { background: #f3f4f6; color: var(--primary); }
-        .nav-btn.active {
-            background: #e0e7ff;
-            color: var(--primary);
-            border-color: #c7d2fe;
-        }
-
-        /* Main Content */
-        main {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            padding-bottom: 80px; /* Space for toast */
-        }
-
-        .tab-content {
+        /* Content Area */
+        .content {
+            padding: 15px;
             display: none;
-            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: fadeIn 0.4s ease-out;
         }
-        .tab-content.active { display: block; }
+        .content.active { display: block; }
 
-        .section-title {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-sub);
-            margin-bottom: 12px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .section-title::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #e5e7eb;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Grid Layout */
-        .grid {
+        /* Buttons Grid */
+        .grid-buttons {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 10px;
         }
 
-        /* Buttons */
-        .btn-card {
-            background: var(--card-bg);
+        h3 {
+            color: #323130;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+            border-bottom: 2px solid #e1dfdd;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        button.action-btn {
+            width: 100%;
             border: none;
-            border-radius: var(--radius);
-            padding: 15px;
+            border-radius: 8px;
+            background-color: white;
+            color: #323130;
+            cursor: pointer;
+            font-size: 11px;
+            box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,0.13), 0 0.3px 0.9px 0 rgba(0,0,0,0.11);
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow);
-            height: 90px;
+            gap: 6px;
+            text-align: center;
+            height: 80px;
             position: relative;
             overflow: hidden;
         }
 
-        .btn-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        button.action-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,0.13), 0 1.2px 3.6px 0 rgba(0,0,0,0.11);
+            z-index: 10;
         }
-
-        .btn-card:active { transform: scale(0.96); }
-
-        .btn-card i { font-size: 24px; color: var(--primary); transition: 0.3s; }
-        .btn-card:hover i { transform: scale(1.1) rotate(5deg); color: var(--accent); }
         
-        .btn-card span {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-main);
-            text-align: center;
-            line-height: 1.2;
-        }
+        button.action-btn:active { transform: scale(0.95); }
 
-        /* Danger Button */
-        .btn-danger { background: #fee2e2; }
-        .btn-danger i { color: #ef4444; }
-        .btn-danger:hover { background: #fecaca; }
-
-        /* Special Full Width */
-        .btn-full { grid-column: span 2; background: linear-gradient(135deg, var(--primary), var(--accent)); }
-        .btn-full i, .btn-full span { color: white; }
+        /* Button Colors & Icons */
+        .icon { font-size: 24px; display: block; margin-bottom: 2px; }
         
-        /* Toast Notification */
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 50px;
-            padding: 12px;
+        .c-blue { border-top: 3px solid var(--secondary); }
+        .c-purple { border-top: 3px solid var(--purple); }
+        .c-pink { border-top: 3px solid var(--pink); }
+        .c-teal { border-top: 3px solid var(--teal); }
+        .c-orange { border-top: 3px solid var(--primary); }
+        .c-dark { border-top: 3px solid var(--dark); background: #f9f9f9; }
+
+        .btn-full { grid-column: span 2; background: linear-gradient(90deg, #0078d4, #8764b8); color: white; font-weight: bold; border: none; }
+        .btn-full .icon { color: white; }
+
+        #status {
             position: fixed;
-            z-index: 100;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            font-size: 13px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            opacity: 0;
-            transition: opacity 0.3s, bottom 0.3s;
+            bottom: 0;
+            width: 100%;
+            background: #201f1e;
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-size: 11px;
+            z-index: 200;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
         }
-        #toast.show {
-            visibility: visible;
-            opacity: 1;
-            bottom: 50px;
-        }
-        #toast.success { background-color: #10b981; }
-        #toast.error { background-color: #ef4444; }
-        #toast.process { background-color: #3b82f6; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>INFINITY X</h1>
-        <p>מחולל האנימציות האולטימטיבי 2.0</p>
-    </header>
+    <div class="header">
+        <h1>🚀 Super Animator ULTRA</h1>
+        <p>ארגז הכלים האולטימטיבי למצגות</p>
+    </div>
 
-    <div class="nav-container">
-        <div class="nav-pills">
-            <button class="nav-btn active" onclick="setTab('create')">יצירה</button>
-            <button class="nav-btn" onclick="setTab('arrange')">סידור</button>
-            <button class="nav-btn" onclick="setTab('effects')">אפקטים</button>
-            <button class="nav-btn" onclick="setTab('text')">טקסט</button>
-            <button class="nav-btn" onclick="setTab('animate')">אנימציה</button>
+    <!-- Navigation Tabs -->
+    <div class="tabs-container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('tab-structures')">מבנים</button>
+            <button class="tab-btn" onclick="openTab('tab-generate')">גנרטור</button>
+            <button class="tab-btn" onclick="openTab('tab-effects')">אפקטים</button>
+            <button class="tab-btn" onclick="openTab('tab-layout')">סידור</button>
+            <button class="tab-btn" onclick="openTab('tab-wild')">שיגעון</button>
         </div>
     </div>
 
-    <main>
-        <!-- Tab 1: Creation -->
-        <div id="create" class="tab-content active">
-            <div class="section-title">גנרטורים</div>
-            <div class="grid">
-                <button class="btn-card" onclick="run(createMatrix)">
-                    <i class="fas fa-code"></i>
-                    <span>מטריקס</span>
-                </button>
-                <button class="btn-card" onclick="run(createCity)">
-                    <i class="fas fa-city"></i>
-                    <span>עיר לילה</span>
-                </button>
-                <button class="btn-card" onclick="run(createSolar)">
-                    <i class="fas fa-sun"></i>
-                    <span>מערכת שמש</span>
-                </button>
-                <button class="btn-card" onclick="run(createDNA)">
-                    <i class="fas fa-dna"></i>
-                    <span>סליל DNA</span>
-                </button>
-                <button class="btn-card" onclick="run(createBrickWall)">
-                    <i class="fas fa-th"></i>
-                    <span>קיר לבנים</span>
-                </button>
-                <button class="btn-card" onclick="run(createConfetti)">
-                    <i class="fas fa-glass-cheers"></i>
-                    <span>קונפטי</span>
-                </button>
-                 <button class="btn-card" onclick="run(createTarget)">
-                    <i class="fas fa-bullseye"></i>
-                    <span>מטרה</span>
-                </button>
-                <button class="btn-card" onclick="run(createStars)">
-                    <i class="fas fa-star"></i>
-                    <span>חלל</span>
-                </button>
-            </div>
+    <!-- Tab 1: Structures (Building Stuff) -->
+    <div id="tab-structures" class="content active">
+        <h3>🏗️ בנייה אוטומטית</h3>
+        <div class="grid-buttons">
+            <button class="action-btn c-purple" id="btnCity">
+                <span class="icon">🏙️</span>
+                בניית עיר
+            </button>
+            <button class="action-btn c-purple" id="btnBrickWall">
+                <span class="icon">🧱</span>
+                קיר לבנים
+            </button>
+            <button class="action-btn c-purple" id="btnHoneycomb">
+                <span class="icon">⬢</span>
+                כוורת דבורים
+            </button>
+            <button class="action-btn c-purple" id="btnPyramid">
+                <span class="icon">🔺</span>
+                פירמידה
+            </button>
+            <button class="action-btn c-purple" id="btnSolar">
+                <span class="icon">🪐</span>
+                מערכת שמש
+            </button>
+            <button class="action-btn c-purple" id="btnDNA">
+                <span class="icon">🧬</span>
+                סליל DNA
+            </button>
         </div>
+    </div>
 
-        <!-- Tab 2: Arrangement -->
-        <div id="arrange" class="tab-content">
-            <div class="section-title">סידור חכם</div>
-            <div class="grid">
-                <button class="btn-card" onclick="run(alignGrid)">
-                    <i class="fas fa-border-all"></i>
-                    <span>גריד אוטומטי</span>
-                </button>
-                <button class="btn-card" onclick="run(alignCircle)">
-                    <i class="fas fa-circle-notch"></i>
-                    <span>מעגל</span>
-                </button>
-                <button class="btn-card" onclick="run(alignStairs)">
-                    <i class="fas fa-signal"></i>
-                    <span>מדרגות</span>
-                </button>
-                <button class="btn-card" onclick="run(alignCenter)">
-                    <i class="fas fa-compress-arrows-alt"></i>
-                    <span>מרכז הכל</span>
-                </button>
-                <button class="btn-card" onclick="run(scatterChaos)">
-                    <i class="fas fa-wind"></i>
-                    <span>פיזור כאוס</span>
-                </button>
-                <button class="btn-card" onclick="run(mirrorShapes)">
-                    <i class="fas fa-clone"></i>
-                    <span>שכפול מראה</span>
-                </button>
-            </div>
+    <!-- Tab 2: Generator (Backgrounds & Elements) -->
+    <div id="tab-generate" class="content">
+        <h3>🎨 יצירה גרפית</h3>
+        <div class="grid-buttons">
+            <button class="action-btn c-pink" id="btnMatrix">
+                <span class="icon">💻</span>
+                מטריקס קוד
+            </button>
+            <button class="action-btn c-pink" id="btnStars">
+                <span class="icon">✨</span>
+                שמיים זרועים
+            </button>
+            <button class="action-btn c-pink" id="btnBarcode">
+                <span class="icon">║▌</span>
+                ברקוד אומנותי
+            </button>
+            <button class="action-btn c-pink" id="btnHypnosis">
+                <span class="icon">😵‍💫</span>
+                היפנוזה
+            </button>
+            <button class="action-btn c-pink" id="btnConfetti">
+                <span class="icon">🎉</span>
+                קונפטי
+            </button>
+             <button class="action-btn c-pink" id="btnStamp">
+                <span class="icon">💮</span>
+                חותמת סודי
+            </button>
         </div>
+    </div>
 
-        <!-- Tab 3: Effects -->
-        <div id="effects" class="tab-content">
-            <div class="section-title">מניפולציות</div>
-            <div class="grid">
-                <button class="btn-card" onclick="run(effectRainbow)">
-                    <i class="fas fa-rainbow"></i>
-                    <span>צבעי הקשת</span>
-                </button>
-                <button class="btn-card" onclick="run(effectNeon)">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>ניאון זוהר</span>
-                </button>
-                <button class="btn-card" onclick="run(effect3D)">
-                    <i class="fas fa-layer-group"></i>
-                    <span>עומק 3D</span>
-                </button>
-                <button class="btn-card" onclick="run(effectGhost)">
-                    <i class="fas fa-ghost"></i>
-                    <span>רפאים</span>
-                </button>
-                <button class="btn-card" onclick="run(effectShadow)">
-                    <i class="fas fa-cloud"></i>
-                    <span>צל ארוך</span>
-                </button>
-                <button class="btn-card" onclick="run(effectRandomStroke)">
-                    <i class="fas fa-pen-nib"></i>
-                    <span>קו משוגע</span>
-                </button>
-                 <button class="btn-card" onclick="run(effectGrayscale)">
-                    <i class="fas fa-adjust"></i>
-                    <span>שחור לבן</span>
-                </button>
-                 <button class="btn-card" onclick="run(effectPixelate)">
-                    <i class="fas fa-chess-board"></i>
-                    <span>פיקסליזציה</span>
-                </button>
-            </div>
+    <!-- Tab 3: Effects (Manipulation) -->
+    <div id="tab-effects" class="content">
+        <h3>🪄 קסמים על צורות</h3>
+        <div class="grid-buttons">
+            <button class="action-btn c-teal" id="btn3DClone">
+                <span class="icon">🥞</span>
+                שכפול תלת-ממד
+            </button>
+            <button class="action-btn c-teal" id="btnLongShadow">
+                <span class="icon">↘️</span>
+                צללית ארוכה
+            </button>
+            <button class="action-btn c-teal" id="btnNeon">
+                <span class="icon">💡</span>
+                אפקט ניאון
+            </button>
+            <button class="action-btn c-teal" id="btnGhost">
+                <span class="icon">👻</span>
+                שובל רפאים
+            </button>
+            <button class="action-btn c-teal" id="btnPixelate">
+                <span class="icon">👾</span>
+                פיקסליזציה
+            </button>
+             <button class="action-btn c-teal" id="btnRainbow">
+                <span class="icon">🌈</span>
+                צביעה בקשת
+            </button>
         </div>
+    </div>
 
-        <!-- Tab 4: Text (NEW) -->
-        <div id="text" class="tab-content">
-            <div class="section-title">טיפוגרפיה</div>
-            <div class="grid">
-                <button class="btn-card" onclick="run(textExplode)">
-                    <i class="fas fa-bomb"></i>
-                    <span>פיצוץ טקסט</span>
-                    <span style="font-size:9px;color:#999">(מפריד לאותיות)</span>
-                </button>
-                <button class="btn-card" onclick="run(textMatrix)">
-                    <i class="fas fa-terminal"></i>
-                    <span>קוד ירוק</span>
-                </button>
-                 <button class="btn-card" onclick="run(textBigImpact)">
-                    <i class="fas fa-heading"></i>
-                    <span>כותרת ענק</span>
-                </button>
-                <button class="btn-card" onclick="run(textStamp)">
-                    <i class="fas fa-stamp"></i>
-                    <span>חותמת סודי</span>
-                </button>
-            </div>
+    <!-- Tab 4: Layout & Tools -->
+    <div id="tab-layout" class="content">
+        <h3>📐 כלים שימושיים</h3>
+        <div class="grid-buttons">
+            <button class="action-btn c-blue" id="btnFrame">
+                <span class="icon">🎬</span>
+                מסגרת קולנועית
+            </button>
+            <button class="action-btn c-blue" id="btnProgressBar">
+                <span class="icon">⏳</span>
+                פס התקדמות
+            </button>
+            <button class="action-btn c-blue" id="btnGridAlign">
+                <span class="icon">📏</span>
+                יישור לגריד
+            </button>
+            <button class="action-btn c-blue" id="btnMirror">
+                <span class="icon">💠</span>
+                מראה מרובעת
+            </button>
+            <button class="action-btn btn-full" id="btnStopMotion">
+                <span class="icon">🎥</span>
+                צור Stop Motion
+            </button>
         </div>
+    </div>
 
-        <!-- Tab 5: Animation -->
-        <div id="animate" class="tab-content">
-            <div class="section-title">כלים מתקדמים</div>
-            <div class="grid">
-                <button class="btn-card btn-full" onclick="run(createStopMotion)">
-                    <i class="fas fa-video"></i>
-                    <span>צור אנימציית Stop Motion</span>
-                    <span style="font-size:10px;opacity:0.8">(יוצר שקופיות חדשות)</span>
-                </button>
-                 <button class="btn-card" onclick="run(createCinematicBars)">
-                    <i class="fas fa-film"></i>
-                    <span>מסגרת סרט</span>
-                </button>
-                <button class="btn-card btn-danger" onclick="run(clearSlide)">
-                    <i class="fas fa-trash-alt"></i>
-                    <span>נקה שקופית</span>
-                </button>
-            </div>
+    <!-- Tab 5: Wild -->
+    <div id="tab-wild" class="content">
+        <h3>🤪 שיגעון מוחלט</h3>
+        <div class="grid-buttons">
+            <button class="action-btn c-orange" id="btnArrowBlast">
+                <span class="icon">💥</span>
+                פיצוץ חיצים
+            </button>
+            <button class="action-btn c-orange" id="btnTunnel">
+                <span class="icon">🕳️</span>
+                מנהרת זמן
+            </button>
+            <button class="action-btn c-orange" id="btnChaos">
+                <span class="icon">🌪️</span>
+                כאוס נשלט
+            </button>
+            <button class="action-btn c-dark" id="btnReset">
+                <span class="icon">💣</span>
+                נקה שקופית
+            </button>
         </div>
-    </main>
+    </div>
 
-    <div id="toast">הודעה</div>
+    <div id="status">מוכן ליצירה...</div>
 
     <script>
-        // --- UI Logic ---
-        function setTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+        // --- System Logic ---
+        function openTab(tabName) {
+            document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
             event.currentTarget.classList.add('active');
-        }
-
-        function showToast(msg, type = 'process') {
-            const toast = document.getElementById("toast");
-            toast.innerText = msg;
-            toast.className = `show ${type}`;
-            if (type !== 'process') {
-                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
-            }
         }
 
         Office.onReady((info) => {
             if (info.host === Office.HostType.PowerPoint) {
-                showToast("מחובר ל-PowerPoint", "success");
+                document.getElementById("status").innerText = "מחובר ל-PowerPoint ✅";
+                bindEvents();
+            } else {
+                document.getElementById("status").innerText = "פתח בתוך PowerPoint";
             }
         });
 
-        // --- Core Engine ---
         async function run(func) {
             try {
-                showToast("⚡ מעבד...", "process");
+                document.getElementById("status").innerText = "⚙️ עובד על זה...";
+                document.getElementById("status").style.background = "#0078d4";
+                
                 await PowerPoint.run(async (context) => {
                     await func(context);
                     await context.sync();
                 });
-                showToast("בוצע בהצלחה! ✨", "success");
+                
+                document.getElementById("status").innerText = "בוצע! ✨";
+                document.getElementById("status").style.background = "#107c10";
+                setTimeout(() => {
+                    document.getElementById("status").innerText = "מוכן ליצירה...";
+                    document.getElementById("status").style.background = "#201f1e";
+                }, 2000);
             } catch (error) {
                 console.error(error);
-                showToast("שגיאה: " + error.message, "error");
+                document.getElementById("status").innerText = "⚠️ שגיאה: " + error.message;
+                document.getElementById("status").style.background = "#d13438";
             }
         }
 
-        // ==========================================
-        // 1. GENERATORS (יצירה)
-        // ==========================================
+        function bindEvents() {
+            // Structures
+            document.getElementById("btnCity").onclick = () => run(createCityscape);
+            document.getElementById("btnBrickWall").onclick = () => run(createBrickWall);
+            document.getElementById("btnHoneycomb").onclick = () => run(createHoneycomb);
+            document.getElementById("btnPyramid").onclick = () => run(createPyramid);
+            document.getElementById("btnSolar").onclick = () => run(createSolarSystem);
+            document.getElementById("btnDNA").onclick = () => run(createDNA);
 
-        async function createMatrix(context) {
+            // Generator
+            document.getElementById("btnMatrix").onclick = () => run(createMatrixRain);
+            document.getElementById("btnStars").onclick = () => run(createStars);
+            document.getElementById("btnBarcode").onclick = () => run(createBarcode);
+            document.getElementById("btnHypnosis").onclick = () => run(createHypnosis);
+            document.getElementById("btnConfetti").onclick = () => run(createConfetti);
+            document.getElementById("btnStamp").onclick = () => run(createStamp);
+
+            // Effects
+            document.getElementById("btn3DClone").onclick = () => run(effect3DClone);
+            document.getElementById("btnLongShadow").onclick = () => run(effectLongShadow);
+            document.getElementById("btnNeon").onclick = () => run(effectNeon);
+            document.getElementById("btnGhost").onclick = () => run(effectGhost);
+            document.getElementById("btnPixelate").onclick = () => run(effectPixelate);
+            document.getElementById("btnRainbow").onclick = () => run(effectRainbow);
+
+            // Layout
+            document.getElementById("btnFrame").onclick = () => run(createCinematicFrame);
+            document.getElementById("btnProgressBar").onclick = () => run(createProgressBar);
+            document.getElementById("btnGridAlign").onclick = () => run(layoutGrid);
+            document.getElementById("btnMirror").onclick = () => run(layoutMirror);
+            document.getElementById("btnStopMotion").onclick = () => run(createStopMotion);
+
+            // Wild
+            document.getElementById("btnArrowBlast").onclick = () => run(createArrowBlast);
+            document.getElementById("btnTunnel").onclick = () => run(createTunnel);
+            document.getElementById("btnChaos").onclick = () => run(layoutChaos);
+            document.getElementById("btnReset").onclick = () => run(clearSlide);
+        }
+
+        // --- 🏗️ Structures Functions ---
+
+        async function createCityscape(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const slideWidth = 960;
+            const slideHeight = 540;
+            const buildingWidth = 40;
+            
+            // רקע לילה
+            let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            bg.left = 0; bg.top = 0; bg.width = slideWidth; bg.height = slideHeight;
+            bg.fill.setSolidColor("#1a1a2e");
+            
+            // בניינים
+            let numberOfBuildings = Math.ceil(slideWidth / buildingWidth);
+            for(let i=0; i<numberOfBuildings; i++) {
+                let h = 100 + Math.random() * 300;
+                let building = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+                building.left = i * buildingWidth;
+                building.top = slideHeight - h;
+                building.width = buildingWidth;
+                building.height = h;
+                building.fill.setSolidColor(Math.random() > 0.5 ? "#16213e" : "#0f3460");
+                building.lineFormat.visible = false;
+                
+                // חלונות (קצת כבד, נעשה רק חלק)
+                if(Math.random() > 0.5) {
+                    let win = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+                    win.left = building.left + 10;
+                    win.top = building.top + 20;
+                    win.width = 5; win.height = 5;
+                    win.fill.setSolidColor("#e94560");
+                }
+            }
+        }
+
+        async function createBrickWall(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const brickW = 60;
+            const brickH = 25;
+            const rows = 10;
+            const cols = 15;
+            
+            for(let r=0; r<rows; r++) {
+                for(let c=0; c<cols; c++) {
+                    let brick = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+                    let offset = (r % 2 === 0) ? 0 : (brickW / 2);
+                    brick.left = 50 + (c * (brickW + 2)) + offset;
+                    brick.top = 100 + (r * (brickH + 2));
+                    brick.width = brickW;
+                    brick.height = brickH;
+                    
+                    let shade = 200 - (Math.random() * 50);
+                    brick.fill.setSolidColor(`rgb(${shade}, 100, 50)`); // גווני חמרה
+                    brick.lineFormat.visible = false;
+                }
+            }
+        }
+
+        async function createHoneycomb(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const size = 40;
+            const rows = 6;
+            const cols = 8;
+            
+            for(let r=0; r<rows; r++) {
+                for(let c=0; c<cols; c++) {
+                    let hex = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.hexagon);
+                    let offset = (r % 2 === 0) ? 0 : (size * 0.85); // הזזה לשורות זוגיות
+                    
+                    hex.left = 100 + (c * (size * 1.8)) + offset;
+                    hex.top = 100 + (r * (size * 1.6));
+                    hex.width = size * 1.8;
+                    hex.height = size * 1.8;
+                    
+                    hex.fill.setSolidColor("#ffb900");
+                    hex.lineFormat.color = "#ffffff";
+                    hex.lineFormat.weight = 3;
+                }
+            }
+        }
+
+        async function createPyramid(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const levels = 8;
+            const blockSize = 40;
+            const startX = 480;
+            const startY = 100;
+            
+            for(let i=0; i<levels; i++) {
+                let itemsInRow = i + 1;
+                let rowWidth = itemsInRow * blockSize;
+                let rowStartX = startX - (rowWidth / 2);
+                
+                for(let j=0; j<itemsInRow; j++) {
+                    let block = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+                    block.left = rowStartX + (j * blockSize);
+                    block.top = startY + (i * blockSize);
+                    block.width = blockSize;
+                    block.height = blockSize;
+                    block.fill.setSolidColor("#0078d4");
+                    block.lineFormat.color = "white";
+                }
+            }
+        }
+
+        async function createSolarSystem(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const cx = 480, cy = 270;
+            
+            // שמש
+            let sun = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+            sun.left = cx - 40; sun.top = cy - 40; sun.width = 80; sun.height = 80;
+            sun.fill.setSolidColor("#ffcc00");
+            
+            // כוכבי לכת
+            const colors = ["#888888", "#d69d4e", "#2c6c9e", "#c54b3c", "#d1a77f", "#80c4de"];
+            for(let i=0; i<6; i++) {
+                let r = 70 + (i * 40);
+                let angle = Math.random() * 6.28;
+                
+                // מסלול
+                let orbit = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+                orbit.left = cx - r; orbit.top = cy - r; orbit.width = r*2; orbit.height = r*2;
+                orbit.fill.clear(); orbit.lineFormat.color = "#cccccc"; orbit.lineFormat.dashStyle = "Dash";
+                
+                // כוכב
+                let planet = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+                let size = 15 + (Math.random() * 20);
+                planet.left = cx + r * Math.cos(angle) - (size/2);
+                planet.top = cy + r * Math.sin(angle) - (size/2);
+                planet.width = size; planet.height = size;
+                planet.fill.setSolidColor(colors[i]);
+            }
+        }
+
+        async function createDNA(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            const startX = 50;
+            const centerY = 270;
+            const points = 20;
+            
+            for(let i=0; i<points; i++) {
+                let x = startX + (i * 40);
+                let offset = Math.sin(i * 0.5) * 80;
+                
+                // כדור עליון
+                let b1 = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+                b1.left = x; b1.top = centerY + offset; b1.width = 20; b1.height = 20;
+                b1.fill.setSolidColor("#d83b01");
+                
+                // כדור תחתון
+                let b2 = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+                b2.left = x; b2.top = centerY - offset; b2.width = 20; b2.height = 20;
+                b2.fill.setSolidColor("#0078d4");
+                
+                // קו מחבר
+                let line = slide.shapes.addLine(PowerPoint.ConnectorType.straight);
+                line.beginConnect(b1);
+                line.endConnect(b2);
+                line.lineFormat.color = "#999999";
+            }
+        }
+
+        // --- 🎨 Generator Functions ---
+
+        async function createMatrixRain(context) {
             const slide = context.presentation.getSelectedSlides().getItemAt(0);
             // רקע שחור
             let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
             bg.left = 0; bg.top = 0; bg.width = 960; bg.height = 540;
             bg.fill.setSolidColor("black");
             
-            // יצירת מספרים
-            for(let i=0; i<30; i++) {
-                let txt = slide.shapes.addTextBox("1 0 1 0 0 1");
+            // טקסטים ירוקים
+            for(let i=0; i<40; i++) {
+                let txt = slide.shapes.addTextBox("0 1 0 1 1 0");
                 txt.left = Math.random() * 900;
                 txt.top = Math.random() * 500;
-                txt.rotation = 90;
-                // הערה: הגדרת פונט מורכבת דורשת טעינה, נעשה פשוט
                 txt.textFrame.textRange.font.color = "#00ff00";
+                txt.textFrame.textRange.font.name = "Courier New";
                 txt.textFrame.textRange.font.size = 14;
-            }
-        }
-
-        async function createCity(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            // רקע
-            let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-            bg.fill.setSolidColor("#0f172a"); // כחול כהה
-            bg.left = 0; bg.top = 0; bg.width = 960; bg.height = 540;
-
-            let x = 0;
-            while (x < 960) {
-                let w = 30 + Math.random() * 50;
-                let h = 100 + Math.random() * 300;
-                let b = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-                b.left = x;
-                b.top = 540 - h;
-                b.width = w;
-                b.height = h;
-                b.fill.setSolidColor(Math.random() > 0.5 ? "#1e293b" : "#334155");
-                b.lineFormat.visible = false;
-                
-                // חלונות מוארים
-                if (Math.random() > 0.3) {
-                    let win = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-                    win.left = x + 5; win.top = 540 - h + 10;
-                    win.width = 5; win.height = 5;
-                    win.fill.setSolidColor("#fbbf24");
-                }
-                x += w;
-            }
-        }
-
-        async function createSolar(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            const cx = 480, cy = 270;
-            
-            // שמש
-            let sun = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
-            sun.left = cx - 50; sun.top = cy - 50; sun.width = 100; sun.height = 100;
-            sun.fill.setSolidColor("#f59e0b");
-            sun.lineFormat.visible = false;
-
-            const colors = ["#9ca3af", "#d97706", "#3b82f6", "#ef4444", "#d1d5db", "#60a5fa"];
-            for(let i=1; i<=6; i++) {
-                let r = i * 45 + 50;
-                // מסלול
-                let orbit = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
-                orbit.left = cx - r; orbit.top = cy - r; orbit.width = r*2; orbit.height = r*2;
-                orbit.fill.clear();
-                orbit.lineFormat.color = "#4b5563";
-                orbit.lineFormat.transparency = 0.7;
-
-                // כוכב
-                let angle = Math.random() * 6.28;
-                let planetSize = 10 + Math.random() * 15;
-                let p = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
-                p.left = cx + r * Math.cos(angle) - (planetSize/2);
-                p.top = cy + r * Math.sin(angle) - (planetSize/2);
-                p.width = planetSize; p.height = planetSize;
-                p.fill.setSolidColor(colors[i-1]);
-                p.lineFormat.visible = false;
-            }
-        }
-
-        async function createDNA(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            for(let i=0; i<25; i++) {
-                let x = 100 + (i * 30);
-                let yCenter = 270;
-                let offset = Math.sin(i * 0.5) * 60;
-
-                let ball1 = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
-                ball1.left = x; ball1.top = yCenter + offset; ball1.width = 15; ball1.height = 15;
-                ball1.fill.setSolidColor("#6366f1"); // Primary
-                ball1.lineFormat.visible = false;
-
-                let ball2 = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
-                ball2.left = x; ball2.top = yCenter - offset; ball2.width = 15; ball2.height = 15;
-                ball2.fill.setSolidColor("#ec4899"); // Accent
-                ball2.lineFormat.visible = false;
-
-                let line = slide.shapes.addLine(PowerPoint.ConnectorType.straight);
-                line.beginConnect(ball1);
-                line.endConnect(ball2);
-                line.lineFormat.color = "#cbd5e1";
-            }
-        }
-
-        async function createBrickWall(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            for(let r=0; r<12; r++) {
-                for(let c=0; c<16; c++) {
-                    let brick = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-                    let w = 60, h = 30;
-                    let offset = (r % 2 === 0) ? 0 : -30;
-                    brick.left = (c * 62) + offset;
-                    brick.top = r * 32;
-                    brick.width = w; brick.height = h;
-                    
-                    // גיוון צבעים
-                    let red = 180 + Math.floor(Math.random() * 40);
-                    brick.fill.setSolidColor(`rgb(${red}, 70, 50)`);
-                    brick.lineFormat.visible = false;
-                }
-            }
-        }
-
-        async function createConfetti(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            for(let i=0; i<80; i++) {
-                let type = Math.random() > 0.5 ? PowerPoint.GeometricShapeType.ellipse : PowerPoint.GeometricShapeType.triangle;
-                let s = slide.shapes.addGeometricShape(type);
-                s.left = Math.random() * 960;
-                s.top = Math.random() * 540;
-                s.width = 10 + Math.random() * 10;
-                s.height = s.width;
-                s.rotation = Math.random() * 360;
-                
-                let color = Math.floor(Math.random()*16777215).toString(16);
-                s.fill.setSolidColor("#" + color);
-                s.lineFormat.visible = false;
-            }
-        }
-        
-        async function createTarget(context) {
-            const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            const cx = 480, cy = 270;
-            for(let i=10; i>0; i--) {
-                let c = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
-                let r = i * 40;
-                c.left = cx - (r/2); c.top = cy - (r/2);
-                c.width = r; c.height = r;
-                c.fill.setSolidColor(i % 2 === 0 ? "#ef4444" : "#ffffff");
-                c.lineFormat.visible = false;
+                txt.rotation = 90; // נופל למטה
             }
         }
 
         async function createStars(context) {
             const slide = context.presentation.getSelectedSlides().getItemAt(0);
-             // רקע
             let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-            bg.fill.setSolidColor("#000000"); 
             bg.left = 0; bg.top = 0; bg.width = 960; bg.height = 540;
-            
-            for(let i=0; i<100; i++) {
-                let s = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.star4);
-                s.left = Math.random() * 960;
-                s.top = Math.random() * 540;
-                let size = 2 + Math.random() * 6;
-                s.width = size; s.height = size;
-                s.fill.setSolidColor("white");
-                s.lineFormat.visible = false;
+            bg.fill.setSolidColor("#000000");
+
+            for(let i=0; i<80; i++) {
+                let type = Math.random() > 0.8 ? PowerPoint.GeometricShapeType.star4 : PowerPoint.GeometricShapeType.ellipse;
+                let star = slide.shapes.addGeometricShape(type);
+                star.left = Math.random() * 960;
+                star.top = Math.random() * 540;
+                let s = Math.random() * 6 + 2;
+                star.width = s; star.height = s;
+                star.fill.setSolidColor("white");
+                star.lineFormat.visible = false;
             }
         }
 
-        // ==========================================
-        // 2. ARRANGEMENT (סידור)
-        // ==========================================
-
-        async function alignGrid(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/left, items/top, items/width, items/height");
-            await context.sync();
-            
-            if (shapes.items.length === 0) return;
-
-            let x = 50, y = 50;
-            let rowH = 0;
-            
-            shapes.items.forEach(s => {
-                s.left = x;
-                s.top = y;
-                rowH = Math.max(rowH, s.height);
-                x += s.width + 10;
-                
-                if (x > 900) {
-                    x = 50;
-                    y += rowH + 10;
-                    rowH = 0;
-                }
-            });
+        async function createBarcode(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            let currentX = 200;
+            while(currentX < 760) {
+                let w = 2 + Math.random() * 15;
+                let bar = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+                bar.left = currentX;
+                bar.top = 150;
+                bar.width = w;
+                bar.height = 200;
+                bar.fill.setSolidColor("black");
+                bar.lineFormat.visible = false;
+                currentX += w + 2 + (Math.random()*5);
+            }
         }
 
-        async function alignCircle(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/width, items/height");
-            await context.sync();
-            
-            const count = shapes.items.length;
-            const radius = 200;
+        async function createHypnosis(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             const cx = 480, cy = 270;
             
-            shapes.items.forEach((s, i) => {
-                const angle = (i / count) * 2 * Math.PI;
-                s.left = cx + radius * Math.cos(angle) - (s.width/2);
-                s.top = cy + radius * Math.sin(angle) - (s.height/2);
-            });
+            for(let i=20; i>0; i--) {
+                let circle = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+                let r = i * 25;
+                circle.left = cx - (r/2);
+                circle.top = cy - (r/2);
+                circle.width = r;
+                circle.height = r;
+                circle.fill.setSolidColor(i % 2 === 0 ? "white" : "black");
+                circle.lineFormat.visible = false;
+            }
         }
 
-        async function alignStairs(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items");
-            await context.sync();
-            // מיון? קשה בלי נתונים מראש. נסדר לפי סדר בחירה.
-            let startX = 100, startY = 100;
-            shapes.items.forEach((s, i) => {
-                s.left = startX + (i * 40);
-                s.top = startY + (i * 40);
-            });
-        }
-        
-        async function alignCenter(context) {
-             const shapes = context.presentation.getSelectedShapes();
-             shapes.load("items/width, items/height");
-             await context.sync();
-             shapes.items.forEach(s => {
-                 s.left = (960 - s.width)/2;
-                 s.top = (540 - s.height)/2;
-             });
+        async function createConfetti(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            for(let i=0; i<60; i++) {
+                let shape = slide.shapes.addGeometricShape(Math.random()>0.5 ? PowerPoint.GeometricShapeType.ellipse : PowerPoint.GeometricShapeType.triangle);
+                shape.left = Math.random() * 960;
+                shape.top = Math.random() * 540;
+                shape.width = 15; shape.height = 15;
+                shape.rotation = Math.random() * 360;
+                let color = Math.floor(Math.random()*16777215).toString(16);
+                shape.fill.setSolidColor("#" + color);
+                shape.lineFormat.visible = false;
+            }
         }
 
-        async function scatterChaos(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/left, items/top, items/rotation");
-            await context.sync();
-            shapes.items.forEach(s => {
-                s.left += (Math.random() * 200) - 100;
-                s.top += (Math.random() * 200) - 100;
-                s.rotation = Math.random() * 360;
-            });
-        }
-        
-        async function mirrorShapes(context) {
-            const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/left, items/top, items/width, items/height");
-            await context.sync();
+        async function createStamp(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
             
+            // מסגרת עגולה
+            let frame = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+            frame.left = 350; frame.top = 150; frame.width = 260; frame.height = 260;
+            frame.fill.clear();
+            frame.lineFormat.color = "red";
+            frame.lineFormat.weight = 8;
+            
+            // טקסט
+            let box = slide.shapes.addTextBox("TOP SECRET");
+            box.left = 380; box.top = 250;
+            box.textFrame.textRange.font.color = "red";
+            box.textFrame.textRange.font.size = 36;
+            box.textFrame.textRange.font.bold = true;
+            box.rotation = -20;
+        }
+
+        // --- 🪄 Effects Functions ---
+
+        async function effect3DClone(context) {
+            const shapes = context.presentation.getSelectedShapes();
+            shapes.load("items/left, items/top, items/width, items/height, items/fill");
+            await context.sync();
             if(shapes.items.length === 0) return;
+            
             const s = shapes.items[0];
             const slide = context.presentation.getSelectedSlides().getItemAt(0);
             
-            // יצירת עותק (סימולציה ע"י הוספת ריבוע, כי API לא מאפשר העתקה קלה)
-            // נניח שזה ריבוע לצורך הדוגמה
-            let mirror = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-            mirror.left = s.left + s.width + 10;
-            mirror.top = s.top;
-            mirror.width = s.width;
-            mirror.height = s.height;
-            mirror.fill.setSolidColor("#e0e0e0"); // אפור כברירת מחדל
+            // יצירת 5 עותקים מאחור
+            for(let i=1; i<=5; i++) {
+                let clone = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle); // מגבלה: לא יודעים סוג צורה
+                // נשתמש בריבוע כברירת מחדל או ננסה משהו פשוט יותר:
+                // לוגיקה טובה יותר ב-API מודרני היא copy/paste, כאן נוסיף צורה דומה
+                
+                clone.left = s.left + (i * 5);
+                clone.top = s.top + (i * 5);
+                clone.width = s.width;
+                clone.height = s.height;
+                clone.fill.setSolidColor("#aaaaaa"); // צבע צל
+                clone.lineFormat.visible = false;
+            }
         }
 
-        // ==========================================
-        // 3. EFFECTS (אפקטים)
-        // ==========================================
-
-        async function effectRainbow(context) {
+        async function effectLongShadow(context) {
+            // סימולציה פשוטה על ידי ריבועים כהים
             const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/fill");
+            shapes.load("items/left, items/top, items/width, items/height");
             await context.sync();
-            const colors = ["#ef4444", "#f97316", "#eab308", "#22c55e", "#3b82f6", "#a855f7", "#ec4899"];
-            shapes.items.forEach((s, i) => {
-                try { s.fill.setSolidColor(colors[i % colors.length]); } catch(e){}
-            });
+            if(shapes.items.length === 0) return;
+            
+            const s = shapes.items[0];
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            
+            for(let i=1; i<20; i++) {
+                let shadow = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+                shadow.left = s.left + (i * 4);
+                shadow.top = s.top + (i * 4);
+                shadow.width = s.width;
+                shadow.height = s.height;
+                shadow.fill.setSolidColor("#000000");
+                shadow.fill.transparency = 0.9; 
+                shadow.lineFormat.visible = false;
+            }
         }
 
         async function effectNeon(context) {
             const shapes = context.presentation.getSelectedShapes();
             shapes.load("items/fill, items/lineFormat");
             await context.sync();
+            
             shapes.items.forEach(s => {
-                try {
-                    s.fill.clear();
-                    s.lineFormat.color = "#00ff00";
-                    s.lineFormat.weight = 4;
-                } catch(e){}
+                s.fill.clear(); // ללא מילוי
+                s.lineFormat.color = "#00ff00"; // ירוק זוהר
+                s.lineFormat.weight = 4;
             });
+            
+            // שינוי רקע שקופית לכהה כדי שיראו
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            // אין API ישיר לרקע שקופית בגרסאות ישנות, נוסיף מלבן אחורי
+            let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            bg.left = 0; bg.top = 0; bg.width = 960; bg.height = 540;
+            bg.fill.setSolidColor("#111111");
+            // הערה: המלבן יסתיר את הצורה, המשתמש יצטרך לעשות send to back ידנית
         }
 
-        async function effect3D(context) {
+        async function effectGhost(context) {
             const shapes = context.presentation.getSelectedShapes();
             shapes.load("items/left, items/top, items/width, items/height");
             await context.sync();
@@ -723,212 +757,232 @@
             
             const s = shapes.items[0];
             const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            for(let i=0; i<5; i++) {
-                let d = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-                d.left = s.left + (i*5); d.top = s.top + (i*5);
-                d.width = s.width; d.height = s.height;
-                d.fill.setSolidColor("#94a3b8");
-                d.lineFormat.visible = false;
+            
+            for(let i=1; i<=3; i++) {
+                let ghost = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse); // פשטות
+                ghost.left = s.left - (i * 30);
+                ghost.top = s.top;
+                ghost.width = s.width;
+                ghost.height = s.height;
+                ghost.fill.setSolidColor("#cccccc");
+                ghost.fill.transparency = 0.3 * i;
             }
         }
-        
-        async function effectGhost(context) {
-             const shapes = context.presentation.getSelectedShapes();
-             shapes.load("items/left, items/top, items/width, items/height");
-             await context.sync();
-             if(shapes.items.length===0) return;
-             
-             const s = shapes.items[0];
-             const slide = context.presentation.getSelectedSlides().getItemAt(0);
-             
-             for(let i=1; i<=3; i++) {
-                 let g = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse); // Placeholder shape
-                 g.left = s.left - (i*30); g.top = s.top; g.width=s.width; g.height=s.height;
-                 g.fill.setSolidColor("#cccccc");
-                 g.fill.transparency = 0.3 * i;
-                 g.lineFormat.visible = false;
-             }
-        }
-        
-        async function effectShadow(context) {
-             const shapes = context.presentation.getSelectedShapes();
-             shapes.load("items/left, items/top, items/width, items/height");
-             await context.sync();
-             if(shapes.items.length===0) return;
-             const s = shapes.items[0];
-             const slide = context.presentation.getSelectedSlides().getItemAt(0);
-             
-             let sh = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-             sh.left = s.left + 10; sh.top = s.top + 10;
-             sh.width = s.width; sh.height = s.height;
-             sh.fill.setSolidColor("black");
-             sh.fill.transparency = 0.6;
-             sh.lineFormat.visible = false;
-             // הערה: ב-JS API אין "send to back" פשוט בצורה גורפת לכל גרסה, אז הצל יהיה מעל.
-        }
-        
-        async function effectRandomStroke(context) {
+
+        async function effectPixelate(context) {
             const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/lineFormat");
+            shapes.load("items/left, items/top, items/width, items/height");
             await context.sync();
-            shapes.items.forEach(s => {
-                try {
-                     s.lineFormat.color = "#" + Math.floor(Math.random()*16777215).toString(16);
-                     s.lineFormat.weight = Math.random() * 8;
-                } catch(e){}
+            if(shapes.items.length === 0) return;
+            const s = shapes.items[0];
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            
+            const pixelSize = 20;
+            const cols = Math.floor(s.width / pixelSize);
+            const rows = Math.floor(s.height / pixelSize);
+            
+            for(let r=0; r<rows; r++) {
+                for(let c=0; c<cols; c++) {
+                    let p = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+                    p.left = s.left + (c * pixelSize);
+                    p.top = s.top + (r * pixelSize);
+                    p.width = pixelSize - 2;
+                    p.height = pixelSize - 2;
+                    p.fill.setSolidColor("#0078d4");
+                    p.lineFormat.visible = false;
+                }
+            }
+            s.delete();
+        }
+
+        async function effectRainbow(context) {
+            const shapes = context.presentation.getSelectedShapes();
+            shapes.load("items/fill");
+            await context.sync();
+            const colors = ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#9400D3"];
+            shapes.items.forEach((s, i) => {
+                try { s.fill.setSolidColor(colors[i % colors.length]); } catch(e){}
             });
         }
-        
-        async function effectGrayscale(context) {
-             const shapes = context.presentation.getSelectedShapes();
-             shapes.load("items/fill");
-             await context.sync();
-             shapes.items.forEach(s => {
-                 try { s.fill.setSolidColor("#666666"); } catch(e){}
-             });
-        }
-        
-        async function effectPixelate(context) {
-             const shapes = context.presentation.getSelectedShapes();
-             shapes.load("items/left, items/top, items/width, items/height");
-             await context.sync();
-             if(shapes.items.length === 0) return;
-             const s = shapes.items[0];
-             const slide = context.presentation.getSelectedSlides().getItemAt(0);
-             const pSize = 20;
-             const rows = Math.floor(s.height/pSize);
-             const cols = Math.floor(s.width/pSize);
-             
-             for(let r=0; r<rows; r++){
-                 for(let c=0; c<cols; c++){
-                     let p = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-                     p.left = s.left + c*pSize;
-                     p.top = s.top + r*pSize;
-                     p.width = pSize-1; p.height = pSize-1;
-                     p.fill.setSolidColor("#6366f1");
-                     p.lineFormat.visible=false;
-                 }
-             }
-             s.delete();
+
+
+        // --- 📐 Layout Functions ---
+
+        async function createCinematicFrame(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            // בר עליון
+            let t = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            t.left = 0; t.top = 0; t.width = 960; t.height = 60;
+            t.fill.setSolidColor("black");
+            // בר תחתון
+            let b = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            b.left = 0; b.top = 480; b.width = 960; b.height = 60;
+            b.fill.setSolidColor("black");
         }
 
-        // ==========================================
-        // 4. TEXT (טקסט)
-        // ==========================================
+        async function createProgressBar(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            // רקע אפור
+            let bg = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            bg.left = 50; bg.top = 500; bg.width = 860; bg.height = 10;
+            bg.fill.setSolidColor("#e0e0e0");
+            // מילוי כחול (50%)
+            let fill = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            fill.left = 50; fill.top = 500; fill.width = 430; fill.height = 10;
+            fill.fill.setSolidColor("#0078d4");
+        }
 
-        async function textExplode(context) {
+        async function layoutGrid(context) {
             const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/textFrame/textRange/text, items/left, items/top");
+            shapes.load("items/left, items/top, items/width, items/height");
             await context.sync();
             
-            if (shapes.items.length === 0) return;
-            const original = shapes.items[0];
-            
-            // בדיקה אם יש טקסט
-            try {
-                const text = original.textFrame.textRange.text;
-                if (!text) return;
+            let startX = 50, startY = 50;
+            let gap = 10;
+            let maxHeight = 0;
+            let currentX = startX;
+            let currentY = startY;
 
-                const slide = context.presentation.getSelectedSlides().getItemAt(0);
-                const startX = original.left;
-                const startY = original.top + 60;
-
-                for (let i = 0; i < text.length; i++) {
-                    let letter = slide.shapes.addTextBox(text[i]);
-                    letter.left = startX + (i * 30);
-                    letter.top = startY + (Math.random() * 40 - 20); // קצת רעידות
-                    letter.textFrame.textRange.font.size = 24;
+            shapes.items.forEach((s, i) => {
+                s.left = currentX;
+                s.top = currentY;
+                
+                maxHeight = Math.max(maxHeight, s.height);
+                currentX += s.width + gap;
+                
+                if(currentX > 800) { // שבירת שורה
+                    currentX = startX;
+                    currentY += maxHeight + gap;
+                    maxHeight = 0;
                 }
-            } catch (e) {
-                throw new Error("בחר תיבת טקסט תקינה");
-            }
-        }
-        
-        async function textMatrix(context) {
-             const slide = context.presentation.getSelectedSlides().getItemAt(0);
-             let txt = slide.shapes.addTextBox("SYSTEM HACKED...");
-             txt.left = 300; txt.top = 250;
-             txt.textFrame.textRange.font.name = "Courier New";
-             txt.textFrame.textRange.font.color = "#00ff00";
-             txt.textFrame.textRange.font.size = 40;
-             txt.fill.setSolidColor("black");
-        }
-        
-        async function textBigImpact(context) {
-             const slide = context.presentation.getSelectedSlides().getItemAt(0);
-             let txt = slide.shapes.addTextBox("IMPACT");
-             txt.left = 100; txt.top = 200;
-             txt.textFrame.textRange.font.bold = true;
-             txt.textFrame.textRange.font.size = 80;
-             txt.textFrame.textRange.font.color = "#1f2937";
-        }
-        
-        async function textStamp(context) {
-             const slide = context.presentation.getSelectedSlides().getItemAt(0);
-             let frame = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-             frame.left = 300; frame.top = 200; frame.width = 400; frame.height = 150;
-             frame.fill.clear();
-             frame.lineFormat.color = "#ef4444";
-             frame.lineFormat.weight = 8;
-             
-             let txt = slide.shapes.addTextBox("TOP SECRET");
-             txt.left = 340; txt.top = 240;
-             txt.textFrame.textRange.font.color = "#ef4444";
-             txt.textFrame.textRange.font.size = 50;
-             txt.textFrame.textRange.font.bold = true;
-             
-             // קבוצה לא נתמכת ב-API ישן, נסובב בנפרד
-             frame.rotation = -15;
-             txt.rotation = -15;
+            });
         }
 
-        // ==========================================
-        // 5. ANIMATION (אנימציה)
-        // ==========================================
+        async function layoutMirror(context) {
+            const shapes = context.presentation.getSelectedShapes();
+            shapes.load("items/left, items/top, items/width, items/height");
+            await context.sync();
+            if(shapes.items.length === 0) return;
+            
+            const s = shapes.items[0];
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            
+            // פינה ימנית עליונה
+            let c2 = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            c2.left = 960 - s.left - s.width;
+            c2.top = s.top;
+            c2.width = s.width; c2.height = s.height;
+            
+            // פינה שמאלית תחתונה
+            let c3 = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            c3.left = s.left;
+            c3.top = 540 - s.top - s.height;
+            c3.width = s.width; c3.height = s.height;
+            
+            // פינה ימנית תחתונה
+            let c4 = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+            c4.left = c2.left;
+            c4.top = c3.top;
+            c4.width = s.width; c4.height = s.height;
+        }
 
         async function createStopMotion(context) {
             const shapes = context.presentation.getSelectedShapes();
-            shapes.load("items/left, items/top, items/width, items/height");
+            shapes.load("items/left, items/top, items/width, items/height, items/fill");
             await context.sync();
             
             let startLeft = 50, startTop = 250, w=50, h=50;
             if (shapes.items.length > 0) {
                 startLeft = shapes.items[0].left;
                 startTop = shapes.items[0].top;
-                w = shapes.items[0].width; h = shapes.items[0].height;
+                w = shapes.items[0].width;
+                h = shapes.items[0].height;
             }
 
-            // יצירת 5 שקופיות בלבד כדי לא להיתקע
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 8; i++) {
                 const newSlide = context.presentation.slides.add();
-                const s = newSlide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
-                s.left = startLeft + (i * 80);
-                s.top = startTop + (Math.sin(i)*60);
-                s.width = w; s.height = h;
-                s.fill.setSolidColor("#6366f1");
+                const newShape = newSlide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.ellipse);
+                newShape.left = startLeft + (i * 80);
+                newShape.top = startTop + (Math.sin(i)*50);
+                newShape.width = w; newShape.height = h;
+                newShape.fill.setSolidColor("#d83b01");
             }
         }
-        
-        async function createCinematicBars(context) {
+
+        // --- 🤪 Wild Functions ---
+
+        async function createArrowBlast(context) {
             const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            let top = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-            top.left=0; top.top=0; top.width=960; top.height=70; top.fill.setSolidColor("black");
+            const cx = 480, cy = 270;
             
-            let bot = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
-            bot.left=0; bot.top=470; bot.width=960; bot.height=70; bot.fill.setSolidColor("black");
+            for(let i=0; i<12; i++) {
+                let angle = (i / 12) * 2 * Math.PI;
+                let arrow = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rightArrow);
+                // חישוב מיקום
+                let r = 100;
+                arrow.left = cx + r * Math.cos(angle) - 25;
+                arrow.top = cy + r * Math.sin(angle) - 15;
+                arrow.width = 50;
+                arrow.height = 30;
+                arrow.rotation = (i / 12) * 360;
+                arrow.fill.setSolidColor("#d83b01");
+            }
+        }
+
+        async function createTunnel(context) {
+            const slide = context.presentation.getSelectedSlides().getItemAt(0);
+            for(let i=15; i>0; i--) {
+                let rect = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle);
+                rect.width = i * 50;
+                rect.height = i * 30;
+                rect.left = 480 - (rect.width / 2);
+                rect.top = 270 - (rect.height / 2);
+                
+                let val = Math.floor(255 - (i * 15));
+                rect.fill.setSolidColor(`rgb(${val}, ${val}, ${val})`);
+                rect.lineFormat.color = "red";
+                rect.rotation = i * 5;
+            }
+        }
+
+        async function layoutChaos(context) {
+            const shapes = context.presentation.getSelectedShapes();
+            shapes.load("items/left, items/top, items/rotation, items/width, items/height");
+            await context.sync();
+            
+            shapes.items.forEach(s => {
+                s.rotation = Math.random() * 360;
+                s.width = s.width * (0.5 + Math.random());
+                s.height = s.height * (0.5 + Math.random());
+                s.left += (Math.random() * 100) - 50;
+                s.top += (Math.random() * 100) - 50;
+            });
         }
 
         async function clearSlide(context) {
             const slide = context.presentation.getSelectedSlides().getItemAt(0);
-            const shapes = slide.shapes;
+            const shapes = context.presentation.getSelectedShapes();
             shapes.load("items");
             await context.sync();
             
-            // מחיקה הפוכה בטוחה יותר
-            for (let i = shapes.items.length - 1; i >= 0; i--) {
-                shapes.items[i].delete();
+            if (shapes.items.length > 0) {
+                 shapes.items.forEach(s => s.delete());
+            } else {
+                // מחיקת הכל אם לא נבחר כלום (בזהירות)
+                 const allShapes = slide.shapes;
+                 allShapes.load("items");
+                 await context.sync();
+                 // מחיקה מהסוף להתחלה
+                 for(let i=allShapes.items.length-1; i>=0; i--) {
+                     allShapes.items[i].delete();
+                 }
             }
         }
+
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cbb748c38a97a08',t:'MTc3MDcyNDkyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+
+<!-- Injection By NetFree -->
+<script src="//netfree.link/injection-script/go-payment.js" type="text/javascript" async ></script>
+<script src="//netfree.link/injection-script/popup-card-init.js" type="text/javascript" async ></script>
